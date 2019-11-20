@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Add new applicant{% endblock %}
+{% block h1 %}Add new applicant{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+        <form action="/add_new_applicant" method="POST">
+            <h3><label for="first_name">First name</label></h3>
+                <input type="text" id="first_name" name="first_name">
+            <h3><label for="last_name">Last name</label></h3>
+                <input type="text" id="last_name" name="last_name">
+            <h3><label for="phone_number">Phone number</label></h3>
+                <input type="tel" id="phone_number" name="phone_number">
+            <h3><label for="email">E-mail</label></h3>
+                <input type="email" id="email" name="email">
+            <h3><label for="application_code">Application code</label></h3>
+                <input type="number" id="application_code" name="application_code">
+            <h3><input type="submit" value="Send"></h3>
+        </form>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

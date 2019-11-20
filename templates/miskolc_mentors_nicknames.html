@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Nicknames all mentors working at Miskolc{% endblock %}
+{% block h1 %}Nicknames all mentors working at Miskolc{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table">
+        <thead><p style="text-align: center">Nicknames all mentors working at Miskolc</p></thead>
+        <tbody>
+            <tr>
+                <th>nick_name</th>
+            </tr>
+            {% for miskolc_mentor_nickname in miskolc_mentors_nicknames %}
+                <tr>
+                    <td>{{ miskolc_mentor_nickname['nick_name'] }}</td>
+                </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

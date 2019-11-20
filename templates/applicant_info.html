@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Applicant info{% endblock %}
+{% block h1 %}Applicant info{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table">
+        <thead><p style="text-align: center">Applicant info</p></thead>
+        <tbody>
+            <tr>
+                <th>first name</th>
+                <th>last name</th>
+                <th>phone number</th>
+                <th>email</th>
+                <th>application code</th>
+            </tr>
+                <tr>
+                    <td>{{ applicant_info.first_name }}</td>
+                    <td>{{ applicant_info.last_name }}</td>
+                    <td>{{ applicant_info.phone_number}}</td>
+                    <td>{{ applicant_info.email}}</td>
+                    <td>{{ applicant_info.application_code}}</td>
+                </tr>
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

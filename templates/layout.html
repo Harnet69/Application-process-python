@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="static/images/favicon.png" type="image/x-icon">
+        <link rel="icon" href="static/images/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    </head>
+    <header>
+        <div class="jumbotron text-center">
+                <div class="row" id="header">
+                    <div class="col-sm-1">
+                        <a href="/"><img src="{{ url_for('static', filename='images/logo_sm.png') }}"  id="go_to_home" alt="Return to main page"></a>
+                    </div>
+                    <div class="col-sm-10">
+                        <h1>{% block h1 %}{% endblock %}</h1>
+                    </div>
+                    <div class="col-sm-1" id="user_log">
+                        {% block user %}{% endblock %}
+                    </div>
+                </div>
+        </div>
+    </header>
+    <body>
+        <div class="content-wrapper">
+            {% block content %} {% endblock %}
+        </div>
+    <footer><i>2019 Created by Harnet69©</i></footer>
+    </body>
+</html>
+
+

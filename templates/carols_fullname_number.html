@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Carol's fullname and number{% endblock %}
+{% block h1 %}Carol's fullname and number{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table">
+        <thead><p style="text-align: center">Carol's fullname and number</p></thead>
+        <tbody>
+            <tr>
+                <th>Fullname</th>
+                <th>Phone number</th>
+            </tr>
+            {% for item in carols_fullname_and_number %}
+            <tr>
+                <td>{{ item['first_name'] }} {{ item['last_name'] }}</td>
+                <td>{{ item['phone_number'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

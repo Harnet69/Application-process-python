@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Mentors names and last names{% endblock %}
+{% block h1 %}Mentors names and last names{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table" width="300px">
+        <thead><p style="text-align: center">Mentors names and last names</p></thead>
+        <tbody>
+            <tr>
+                <th>first name</th>
+                <th>last name</th>
+            </tr>
+            {% for mentor_name in mentors_names_lastnames %}
+                <tr>
+                    <td>{{ mentor_name.first_name }}</td>
+                    <td>{{ mentor_name.last_name }}</td>
+                </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
