@@ -22,8 +22,8 @@
                         <td>{{ applicant.phone_number}}</td>
                         <td>{{ applicant.email}}</td>
                         <td>{{ applicant.application_code}}</td>
-                        <td><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></td>
-                        <td><img src="{{ url_for('static', filename="images/delete.png") }}"></td>
+                        <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
+                        <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
                     </tr>
                 {% endfor %}
         </tbody>
