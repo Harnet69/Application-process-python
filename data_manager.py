@@ -64,3 +64,11 @@ def get_applicants_info(cursor):
         print("Something wrong")
 
 
+@database_common.connection_handler
+def get_applicant_info_by_id(cursor, id):
+    try:
+        cursor.execute("SELECT * FROM applicants WHERE id = %s", (id,))
+        applicant_info_by_id = cursor.fetchone()
+        return applicant_info_by_id
+    except Exception:
+        print("Something wrong")

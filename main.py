@@ -10,9 +10,9 @@ MENU_PAGES = {'mentors_names_lastnames':('mentors_names_lastnames.html', 'Mentor
               'another_girls_fullname_number':('another_girls__fullname_number.html', "Another girl's full name and phone nubmer"),
               'add_new_applicant':('add_new_applicant.html', 'Add new applicant',),
               'applicant_info':('applicant_info.html', 'Applicant info'),
-              'applicants_info':('applicants_info.html', 'Applicants info'),
+              'applicants_info':('applicants_info', 'applicants_info.html', 'Applicants info'),
               'applicant_delete':('applicant_delete','applicant_delete.html', 'Delete the applicant'),
-              'applicant_update':('applicant_update','applicant_update.html', 'Update the applicant')
+              'applicant_update':('applicant_update','applicant_update.html', 'Update info about an applicant')
               }
 
 
@@ -75,17 +75,22 @@ def applicant_info(application_code=0):
 def applicants_info():
     applicants_info = data_manager.get_applicants_info()
 
-    return render_template(MENU_PAGES['applicants_info'][0], applicants_info=applicants_info, MENU_PAGES=MENU_PAGES)
+    return render_template(MENU_PAGES['applicants_info'][1], applicants_info=applicants_info, MENU_PAGES=MENU_PAGES)
 
 # 7. Delete applicant from table
 @app.route('/applicant_delete/<int:id>')
 def delete_applicant(id=0):
     return render_template(MENU_PAGES['applicant_delete'][1])
 
-# 8. Update applicant from table
+# 8. Update an applicants information
+@app.route('/applicant_update', methods=['GET', 'POST'])
 @app.route('/applicant_update/<int:id>')
 def update_applicant(id=0):
-    return render_template(MENU_PAGES['applicant_update'][1])
+    if request.method == "POST":
+        return redirect(MENU_PAGES['applicants_info'][0])
+    else:
+        applicant_info_by_id = data_manager.get_applicant_info_by_id(id)
+        return render_template(MENU_PAGES['applicant_update'][1], applicant_info_by_id=applicant_info_by_id)
 
 if __name__ == '__main__':
     app.run(debug=True)
