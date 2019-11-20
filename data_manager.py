@@ -41,7 +41,7 @@ def add_new_applicant(cursor, first_name, last_name, phone_number, email, applic
         cursor.execute("INSERT INTO applicants(first_name, last_name, phone_number, email, application_code) VALUES(%s, %s, %s, %s, %s)", (first_name, last_name, phone_number, email, application_code))
         return True
     except Exception:
-        print("Something wrong")
+        print("Something wrong with add_new_applicant")
 
 
 @database_common.connection_handler
@@ -61,7 +61,7 @@ def get_applicants_info(cursor):
         applicants_info = cursor.fetchall()
         return  applicants_info
     except Exception:
-        print("Something wrong")
+        print("Something wrong with get_applicants_info")
 
 
 @database_common.connection_handler
@@ -71,4 +71,13 @@ def get_applicant_info_by_id(cursor, id):
         applicant_info_by_id = cursor.fetchone()
         return applicant_info_by_id
     except Exception:
-        print("Something wrong")
+        print("Something wrong with get_applicant_info_by_id")
+
+@database_common.connection_handler
+def update_applicant_information(cursor, id, first_name, last_name, phone_number, email, application_code):
+    try:
+        cursor.execute("UPDATE applicants SET first_name = %s, last_name = %s, phone_number = %s, email = %s, application_code = %s WHERE id = %s",
+                       (id, first_name, last_name, phone_number, email, application_code))
+        return True
+    except Exception:
+        print("Something wrong with update_applicant_information")
