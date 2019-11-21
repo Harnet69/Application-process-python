@@ -90,9 +90,12 @@ def applicants_info():
 
 
 # 7. Delete applicant from table
-@app.route('/applicant_delete/<int:id>')
-def delete_applicant(id=0):
-    return render_template(MENU_PAGES['applicant_delete'][1])
+@app.route('/applicant_delete')
+@app.route('/applicant_delete/<app_id>')
+def delete_applicant(app_id=0):
+    data_manager.delete_applicant(app_id)
+
+    return redirect('/applicants_info')
 
 
 # 8. Update an applicants information

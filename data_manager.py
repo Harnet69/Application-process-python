@@ -81,3 +81,11 @@ def update_applicant_information(cursor, id, first_name, last_name, phone_number
         return True
     except Exception:
         print("Something wrong with update_applicant_information")
+
+@database_common.connection_handler
+def delete_applicant(cursor, app_id):
+    try:
+        cursor.execute("DELETE FROM applicants WHERE id = %s", (app_id,))
+        return True
+    except Exception:
+        print("Something wrong with delete_applicant")
