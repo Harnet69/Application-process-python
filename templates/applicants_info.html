@@ -3,6 +3,9 @@
 {% block h1 %}Applicants info{% endblock %}
 {% block content %}
     <div id="quiz_list">
+    <form>
+        <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
+    </form>
     <table id="quizes_list_table">
         <thead></thead>
         <tbody>

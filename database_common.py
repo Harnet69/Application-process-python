@@ -5,6 +5,8 @@ import psycopg2
 import psycopg2.extras
 
 
+# working with local database
+
 # def get_connection_string():
 #     # setup connection string
 #     # to do this, please define these environment variables first
@@ -50,9 +52,9 @@ import psycopg2.extras
 #
 #     return wrapper
 
+# working with Heroku database
 def create_connection_string():
     db_url = os.environ.get("DATABASE_URL")
-
     env_var_defined = db_url
 
     if env_var_defined:

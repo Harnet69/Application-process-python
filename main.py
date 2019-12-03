@@ -9,7 +9,7 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'carols_fullname_number': ('carols_fullname_number.html', "Carol's full name and phone nubmer"),
               'another_girls_fullname_number': (
               'another_girls__fullname_number.html', "Another girl's full name and phone nubmer"),
-              'add_new_applicant': ('add_new_applicant.html', 'Add new applicant',),
+              'add_new_applicant': ('add_new_applicant', 'add_new_applicant.html', 'Add new applicant',),
               'applicant_info': ('applicant_info.html', 'Applicant info'),
               'applicants_info': ('applicants_info', 'applicants_info.html', 'Applicants info'),
               'applicant_delete': ('applicant_delete', 'applicant_delete.html', 'Delete the applicant'),
@@ -69,7 +69,7 @@ def add_new_applicant():
         return redirect(f'/applicant_info/{application_code}')
         # return render_template(MENU_PAGES['applicant_info'][0],application_code=application_code)
     else:
-        return render_template(MENU_PAGES['add_new_applicant'][0])
+        return render_template(MENU_PAGES['add_new_applicant'][1])
 
 
 # 5.2 Display recently added applicant
