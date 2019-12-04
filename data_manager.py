@@ -57,7 +57,7 @@ def get_applicant_info(cursor, application_code):
 @database_common.connection_handler
 def get_applicants_info(cursor):
     try:
-        cursor.execute("SELECT * FROM applicants")
+        cursor.execute("SELECT * FROM applicants ORDER BY id DESC")
         applicants_info = cursor.fetchall()
         return  applicants_info
     except Exception:
