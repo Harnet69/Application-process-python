@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}All school page{% endblock %}
+{% block h1 %}All school page{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table" width="300px">
+        <thead><p style="text-align: center">All school page</p></thead>
+        <tbody>
+            <tr>
+                <th>mentors first name</th>
+                <th>mentors last name</th>
+                <th>schools name</th>
+                <th>schools country</th>
+            </tr>
+            {% for school_info in all_school_info %}
+                <tr>
+                    {% if school_info.mentors_name%}
+                        <td>{{ school_info.mentors_name }}</td>
+                    {% else %}
+                        <td>No data</td>
+                    {% endif %}
+                    {% if school_info.mentors_lastname%}
+                        <td>{{ school_info.mentors_lastname }}</td>
+                    {% else %}
+                        <td>No data</td>
+                    {% endif %}
+                    <td>{{ school_info.schools_name }}</td>
+                    <td>{{ school_info.schools_country }}</td>
+                </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

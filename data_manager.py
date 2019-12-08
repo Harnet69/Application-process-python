@@ -104,6 +104,19 @@ def delete_applicant(cursor, app_id):
 
 @database_common.connection_handler
 def mentors_and_schools_info(cursor):
-    cursor.execute("SELECT mentors.first_name as mentors_name, mentors.last_name as mentors_lastname, schools.name as schools_name, schools.country as schools_country FROM mentors INNER JOIN schools ON mentors.id = schools.contact_person")
+    cursor.execute(
+        "SELECT mentors.first_name as mentors_name, mentors.last_name as mentors_lastname,"
+        "schools.name as schools_name, schools.country as schools_country "
+        "FROM mentors INNER JOIN schools ON mentors.id = schools.contact_person ORDER BY mentors.id")
+    names = cursor.fetchall()
+    return names
+
+
+@database_common.connection_handler
+def all_school_info(cursor):
+    cursor.execute(
+        "SELECT mentors.first_name as mentors_name, mentors.last_name as mentors_lastname, "
+        "schools.name as schools_name, schools.country as schools_country "
+        "FROM mentors RIGHT JOIN schools ON mentors.id = schools.contact_person ORDER BY mentors.id")
     names = cursor.fetchall()
     return names
