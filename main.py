@@ -15,7 +15,8 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'applicant_delete': ('applicant_delete', 'applicant_delete.html', 'Delete the applicant'),
               'applicant_update': ('applicant_update', 'applicant_update.html', 'Update info about an applicant'),
               'mentors': ('mentors', 'mentors.html', 'Mentors and schools page'),
-              'all-school': ('all-school', 'all-school.html', 'All school page')
+              'all-school': ('all-school', 'all-school.html', 'All school page'),
+              'mentors-by-country': ('mentors-by-country', 'mentors-by-country.html', 'Mentors by country')
               }
 
 
@@ -127,6 +128,13 @@ def all_school():
     all_school_info = data_manager.all_school_info()
 
     return render_template(MENU_PAGES['all-school'][1], all_school_info=all_school_info)
+
+# 11. Number of mentors in a country
+@app.route('/mentors_by_country')
+def mentors_by_country():
+    mentors_by_country = data_manager.mentors_by_country()
+
+    return render_template(MENU_PAGES['mentors-by-country'][1], mentors_by_country=mentors_by_country)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Mentors by a country{% endblock %}
+{% block h1 %}Mentors by a country{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table" width="300px">
+        <thead><p style="text-align: center">Mentors by a country</p></thead>
+        <tbody>
+            <tr>
+                <th>country</th>
+                <th>mentors number</th>
+            </tr>
+            {% for mentor_by_country in mentors_by_country %}
+                {% for key, value in mentor_by_country.items() %}
+                    <tr>
+                        <td style="text-transform: capitalize">{{ key }}</td>
+                        <td>{{  value }}</td>
+                    </tr>
+                {% endfor%}
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

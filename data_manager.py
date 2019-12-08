@@ -120,3 +120,14 @@ def all_school_info(cursor):
         "FROM mentors RIGHT JOIN schools ON mentors.id = schools.contact_person ORDER BY mentors.id")
     names = cursor.fetchall()
     return names
+
+
+@database_common.connection_handler
+def mentors_by_country(cursor):
+    cursor.execute(
+        "SELECT COUNT(first_name) as Hungary FROM mentors WHERE city = 'Miskolc' OR city = 'Budapest'")
+    names = cursor.fetchall()
+    cursor.execute(
+        "SELECT COUNT(first_name) as Poland FROM mentors WHERE city = 'Krakow' OR city = 'Warsaw'")
+    names.extend(cursor.fetchall())
+    return names
