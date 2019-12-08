@@ -3,7 +3,7 @@
 {% block h1 %}Application process - Basic SQL{% endblock %}
 
 {% block content %}
-    <h2>Assignmens:</h2>
+    <h2>2th week assignmens:</h2>
     <ol>
             <li><a href="{{ url_for('mentors_names_lastnames') }}">{{ MENU_PAGES['mentors_names_lastnames'][1] }}</a></li>
             <li><a href="{{ url_for('miskolc_mentors_nicknames') }}">{{ MENU_PAGES['miskolc_mentors_nicknames'][1] }}</a></li>
@@ -11,5 +11,9 @@
             <li><a href="{{ url_for('another_girls_fullname_number') }}">{{MENU_PAGES['another_girls_fullname_number'][1]}}</a></li>
             <li><a href="{{ url_for('add_new_applicant') }}">{{MENU_PAGES['add_new_applicant'][2]}}</a></li>
             <li><a href="{{ url_for('applicants_info') }}">{{MENU_PAGES['applicants_info'][2]}}</a></li>
+    </ol>
+        <h2>3th week assignmens:</h2>
+    <ol>
+            <li><a href="{{ url_for('mentors') }}">{{ MENU_PAGES['mentors'][2] }}</a></li>
     </ol>
 {% endblock %}
