@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Contacts{% endblock %}
+{% block h1 %}Contacts{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <table id="quizes_list_table" width="300px">
+        <thead><p style="text-align: center">Contacts</p></thead>
+        <tbody>
+            <tr>
+                <th>school</th>
+                <th>contact_person</th>
+            </tr>
+            {% for school_contact in school_contacts %}
+                    <tr>
+                        <td>{{ school_contact.schools_name }}</td>
+                        {% if school_contact.mentors_name or school_contact.mentors_lastname %}
+                            <td>{{ school_contact.mentors_name }} {{ school_contact.mentors_lastname }}</td>
+                        {% else %}
+                            <td>Not assigned</td>
+                        {% endif %}
+                    </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
