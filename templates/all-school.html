@@ -3,8 +3,13 @@
 {% block h1 %}All school page{% endblock %}
 {% block content %}
     <div id="quiz_list">
+    <h3>All school page</h3>
+    <p>
+        On this page you should show the result of a query that returns the name of the mentors plus the name and country
+        of the school (joining with the schools table) ordered by the mentors id column.
+        BUT include all the schools, even if there's no mentor yet (in that cell, "No data" should be displayed)!
+    </p>
     <table id="quizes_list_table" width="300px">
-        <thead><p style="text-align: center">All school page</p></thead>
         <tbody>
             <tr>
                 <th>mentors first name</th>

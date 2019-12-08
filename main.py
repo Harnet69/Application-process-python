@@ -32,7 +32,7 @@ def index():
 def mentors_names_lastnames():
     mentors_names_lastnames = data_manager.get_mentors_names_lastnames()
 
-    return render_template(MENU_PAGES['mentors'][0], mentors_names_lastnames=mentors_names_lastnames)
+    return render_template(MENU_PAGES['mentors_names_lastnames'][0], mentors_names_lastnames=mentors_names_lastnames)
 
 
 # 2. Nicknames all mentors working at Miskolc

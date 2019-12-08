@@ -3,6 +3,17 @@
 {% block h1 %}Applicants info{% endblock %}
 {% block content %}
     <div id="quiz_list">
+    <p>
+        Jemima Foreman, an applicant called us, that her phone number changed to: 003670/223-7459 Write an UPDATE query,
+        that changes this data in the database for this applicant. Also, write a SELECT query, that checks the phone_number
+        column of this applicant. Use both of her name parts in the conditions!
+Arsenio, an applicant called us, that he and his friend applied to Codecool. They both want to cancel the process, because
+        they got an investor for the site they run: mauriseu.net
+    </p>
+    <p>
+        Write DELETE query to remove all the applicants, who applied with emails for this domain (e-mail address has this domain
+        after the @ sign).
+    </p>
     <form>
         <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
     </form>
