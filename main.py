@@ -18,7 +18,8 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'all-school': ('all-school', 'all-school.html', 'All school page'),
               'mentors-by-country': ('mentors-by-country', 'mentors-by-country.html', 'Mentors by country'),
               'contacts': ('contacts', 'contacts.html', 'Contacts'),
-              'applicants':('applicants', 'applicants.html','Applicants page')
+              'applicants': ('applicants', 'applicants.html','Applicants page'),
+              'applicants-and-mentors': ('applicants-and-mentors', 'applicants-and-mentors.html', 'Applicants and mentors')
               }
 
 
@@ -151,6 +152,13 @@ def applicants():
     applicants_info = data_manager.applicants()
 
     return render_template(MENU_PAGES['applicants'][1], applicants_info=applicants_info)
+
+# 14. Applicants and mentors
+@app.route('/applicants-and-mentors ')
+def applicants_and_mentors():
+    applicants_and_mentors_info = data_manager.applicants_and_mentors()
+
+    return render_template(MENU_PAGES['applicants-and-mentors'][1], applicants_and_mentors_info=applicants_and_mentors_info)
 
 
 if __name__ == '__main__':

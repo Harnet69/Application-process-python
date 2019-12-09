@@ -146,6 +146,14 @@ def school_contacts(cursor):
 def applicants(cursor):
     cursor.execute(
             "SELECT applicants.first_name, applicants.application_code, mentors.first_name as mentors_name "
-        "FROM applicants INNER JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.first_name")
+        "FROM applicants INNER JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.id")
+    names = cursor.fetchall()
+    return names\
+
+@database_common.connection_handler
+def applicants_and_mentors(cursor):
+    cursor.execute(
+            "SELECT applicants.first_name, applicants.application_code, mentors.first_name as mentors_name, mentors.last_name as mentors_lastname "
+        "FROM applicants LEFT JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.first_name")
     names = cursor.fetchall()
     return names
