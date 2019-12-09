@@ -140,3 +140,12 @@ def school_contacts(cursor):
         " FROM mentors RIGHT JOIN schools ON mentors.id = schools.contact_person ORDER BY schools.name")
     names = cursor.fetchall()
     return names
+
+
+@database_common.connection_handler
+def applicants(cursor):
+    cursor.execute(
+            "SELECT applicants.first_name, applicants.application_code, mentors.first_name as mentors_name "
+        "FROM applicants INNER JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.first_name")
+    names = cursor.fetchall()
+    return names

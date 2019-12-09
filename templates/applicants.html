@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Applicants{% endblock %}
+{% block h1 %}Applicants{% endblock %}
+{% block content %}
+    <div id="quiz_list">
+    <h3>Applicants</h3>
+    <p>
+        On this page you should show the result of a query that returns the first name and the code of the
+        applicants plus the creation_date of the application (joining with the applicants_mentors table) ordered
+        by the creation_date in descending order BUT only for applications later than 2016-01-01
+    </p>
+    <table id="quizes_list_table" width="300px">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <th>Applicants first name</th>
+                <th>Applicants code</th>
+                <th>Applicants mentor</th>
+            </tr>
+            {% for applicant_info in applicants_info %}
+                <tr>
+                    <td>{{ applicant_info.first_name }}</td>
+                    <td>{{ applicant_info.application_code }}</td>
+                    <td>{{ applicant_info.mentors_name }}</td>
+                </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
