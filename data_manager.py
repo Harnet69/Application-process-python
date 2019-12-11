@@ -98,12 +98,23 @@ def get_applicant_info_by_id(cursor, id):
 
 @database_common.connection_handler
 def update_applicant_information(cursor, first_name, last_name, phone_number, email, application_code, id, request, app):
-    user_image_name = change_user_image_name(request, application_code)
-    print(user_image_name)
+    # # if application code was changed we have to rewrite filename of user image
+    # app_code_from_db = get_applicant_application_code(id)
+    # # if application code was changed
+    # if int(application_code) != int(app_code_from_db['application_code']):
+    #     print(f'{application_code} != ')
     try:
-        cursor.execute(
-            "UPDATE applicants SET first_name = %s, last_name = %s, phone_number = %s, email = %s, application_code = %s WHERE id = %s",
-            (first_name, last_name, phone_number, email, application_code, id))
+        user_image_name = change_user_image_name(request, application_code)
+        file = request.files['user_image']
+        if file:
+            upload_file(request, app, user_image_name)
+            cursor.execute(
+                "UPDATE applicants SET first_name = %s, last_name = %s, phone_number = %s, email = %s, application_code = %s, user_image_name = %s WHERE id = %s",
+                (first_name, last_name, phone_number, email, application_code, user_image_name, id))
+        else:
+            cursor.execute(
+                "UPDATE applicants SET first_name = %s, last_name = %s, phone_number = %s, email = %s, application_code = %s WHERE id = %s",
+                (first_name, last_name, phone_number, email, application_code, id))
         return True
     except Exception:
         print("Something wrong with update_applicant_information")
@@ -113,6 +124,16 @@ def update_applicant_information(cursor, first_name, last_name, phone_number, em
 def get_applicant_app_code(cursor, app_id):
     try:
         cursor.execute("SELECT user_image_name FROM applicants WHERE id = %s", (app_id,))
+        file_to_delete = cursor.fetchone()
+        return file_to_delete
+    except Exception:
+        print("Something wrong with get_applicant_app_code")\
+
+
+@database_common.connection_handler
+def get_applicant_application_code(cursor, app_id):
+    try:
+        cursor.execute("SELECT application_code FROM applicants WHERE id = %s", (app_id,))
         file_to_delete = cursor.fetchone()
         return file_to_delete
     except Exception:

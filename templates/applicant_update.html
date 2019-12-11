@@ -26,8 +26,8 @@
                         <input type="tel" id="phone_number" name="phone_number" value="{{ applicant_info_by_id.phone_number }}">
                     <h5><label for="email">E-mail</label></h5>
                         <input type="email" id="email" name="email" value="{{ applicant_info_by_id.email }}">
-                    <h5><label for="application_code">Application code</label></h5>
-                        <input type="number" id="application_code" name="application_code" value="{{ applicant_info_by_id.application_code }}">
+                    <h5><label for="application_code" hidden >Application code</label></h5>
+                        <input type="number" hidden id="application_code" name="application_code" value="{{ applicant_info_by_id.application_code }}">
                     <h5><label for="user_image">User image (size limit 2Mb)</label></h5>
                         <input type="file" id="user_image" name="user_image">
                     <h5><input type="submit" value="Update"></h5>
