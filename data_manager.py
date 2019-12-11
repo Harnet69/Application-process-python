@@ -97,14 +97,17 @@ def get_applicant_info_by_id(cursor, id):
 
 
 @database_common.connection_handler
-def update_applicant_information(cursor, id, first_name, last_name, phone_number, email, application_code):
+def update_applicant_information(cursor, first_name, last_name, phone_number, email, application_code, id, request, app):
+    user_image_name = change_user_image_name(request, application_code)
+    print(user_image_name)
     try:
         cursor.execute(
             "UPDATE applicants SET first_name = %s, last_name = %s, phone_number = %s, email = %s, application_code = %s WHERE id = %s",
-            (id, first_name, last_name, phone_number, email, application_code))
+            (first_name, last_name, phone_number, email, application_code, id))
         return True
     except Exception:
         print("Something wrong with update_applicant_information")
+
 
 @database_common.connection_handler
 def get_applicant_app_code(cursor, app_id):
@@ -114,7 +117,6 @@ def get_applicant_app_code(cursor, app_id):
         return file_to_delete
     except Exception:
         print("Something wrong with get_applicant_app_code")
-
 
 
 @database_common.connection_handler

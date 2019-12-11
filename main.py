@@ -115,7 +115,7 @@ def update_applicant(app_id=0):
     if request.method == "POST":
         data_manager.update_applicant_information(request.form['first_name'], request.form['last_name'],
                                                   request.form['phone_number'], request.form['email'],
-                                                  request.form['application_code'], request.form['id'])
+                                                  request.form['application_code'], request.form['id'], request, app)
         return redirect('applicants_info')
     else:
         applicant_info_by_id = data_manager.get_applicant_info_by_id(app_id)

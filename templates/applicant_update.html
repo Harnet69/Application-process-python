@@ -16,19 +16,21 @@
                 {% endif %}
             </div>
             <div class="col-sm-6">
-               <form action="/applicant_update", method="POST">
-                    <h3><label for="first_name">First name</label></h3>
+               <form action="/applicant_update" method="POST" enctype="multipart/form-data">
+                    <h5><label for="first_name">First name</label></h5>
                         <input type="text" id="first_name" name="first_name" value="{{ applicant_info_by_id.first_name }}">
                         <input hidden name="id" value="{{ applicant_info_by_id.id }}">
-                    <h3><label for="last_name">Last name</label></h3>
+                    <h5><label for="last_name">Last name</label></h5>
                         <input type="text" id="last_name" name="last_name" value="{{ applicant_info_by_id.last_name }}">
-                    <h3><label for="phone_number">Phone number</label></h3>
+                    <h5><label for="phone_number">Phone number</label></h5>
                         <input type="tel" id="phone_number" name="phone_number" value="{{ applicant_info_by_id.phone_number }}">
-                    <h3><label for="email">E-mail</label></h3>
+                    <h5><label for="email">E-mail</label></h5>
                         <input type="email" id="email" name="email" value="{{ applicant_info_by_id.email }}">
-                    <h3><label for="application_code">Application code</label></h3>
+                    <h5><label for="application_code">Application code</label></h5>
                         <input type="number" id="application_code" name="application_code" value="{{ applicant_info_by_id.application_code }}">
-                    <h3><input type="submit" value="Update"></h3>
+                    <h5><label for="user_image">User image (size limit 2Mb)</label></h5>
+                        <input type="file" id="user_image" name="user_image">
+                    <h5><input type="submit" value="Update"></h5>
                 </form>
             </div>
         </div>
