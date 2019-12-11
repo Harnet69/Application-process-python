@@ -106,6 +106,16 @@ def update_applicant_information(cursor, id, first_name, last_name, phone_number
     except Exception:
         print("Something wrong with update_applicant_information")
 
+@database_common.connection_handler
+def get_applicant_app_code(cursor, app_id):
+    try:
+        cursor.execute("SELECT user_image_name FROM applicants WHERE id = %s", (app_id,))
+        file_to_delete = cursor.fetchone()
+        return file_to_delete
+    except Exception:
+        print("Something wrong with get_applicant_app_code")
+
+
 
 @database_common.connection_handler
 def delete_applicant(cursor, app_id):
@@ -114,6 +124,19 @@ def delete_applicant(cursor, app_id):
         return True
     except Exception:
         print("Something wrong with delete_applicant")
+
+
+@database_common.connection_handler
+def delete_applicant_image(cursor, app_code):
+    file_to_delete = 'static/user_images/' + app_code['user_image_name']
+    try:
+        if os.path.exists(file_to_delete):
+            os.remove(file_to_delete)
+        else:
+            print("The file does not exist")
+        return True
+    except Exception:
+        print("Something wrong with delete_applicant_image")
 
 
 @database_common.connection_handler

@@ -101,8 +101,10 @@ def applicants_info():
 @app.route('/applicant_delete')
 @app.route('/applicant_delete/<app_id>')
 def delete_applicant(app_id=0):
-    data_manager.delete_applicant(app_id)
-
+    app_code = data_manager.get_applicant_app_code(app_id)
+    delete_applicant = data_manager.delete_applicant(app_id)
+    if delete_applicant:
+        data_manager.delete_applicant_image(app_code)
     return redirect('/applicants_info')
 
 
