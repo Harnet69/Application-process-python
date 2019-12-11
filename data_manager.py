@@ -50,11 +50,18 @@ def another_girls_fullname_number(cursor):
 def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, request, app):
     user_image_name = change_user_image_name(request, application_code)
     try:
-        cursor.execute(
-            "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_image_name) VALUES(%s, %s, %s, %s, %s, %s)",
-            (first_name, last_name, phone_number, email, application_code, user_image_name))
-        upload_file(request, app, user_image_name)
-        return True
+        if user_image_name:
+            cursor.execute(
+                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_image_name) VALUES(%s, %s, %s, %s, %s, %s)",
+                (first_name, last_name, phone_number, email, application_code, user_image_name))
+            upload_file(request, app, user_image_name)
+            return True
+        else:
+            cursor.execute(
+                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code) VALUES(%s, %s, %s, %s, %s)",
+                (first_name, last_name, phone_number, email, application_code))
+
+            return True
     except Exception:
         print("Something wrong with add_new_applicant")
 
@@ -177,9 +184,11 @@ def allowed_file(filename):
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
     user_image_name = secure_filename(file.filename)
-    splitted_name = user_image_name.split('.')
-    new_name = application_code+'.'+splitted_name[-1]
-    return new_name
+    if user_image_name:
+        splitted_name = user_image_name.split('.')
+        new_name = application_code+'.'+splitted_name[-1]
+        return new_name
+    return False
 
 # secure saving users image
 def upload_file(request, app, user_image_name):
