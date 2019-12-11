@@ -85,6 +85,8 @@ pyvenv.cfg
 # virtualenv
 .venv
 venv/
+
+static/user_images/
 ENV/
 
 # End of https://www.gitignore.io/api/venv,pycharm

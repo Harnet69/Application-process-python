@@ -12,6 +12,7 @@
                 <th>phone number</th>
                 <th>email</th>
                 <th>application code</th>
+                <th>applicant image</th>
             </tr>
                 <tr>
                     <td>{{ applicant_info.first_name }}</td>
@@ -19,6 +20,13 @@
                     <td>{{ applicant_info.phone_number}}</td>
                     <td>{{ applicant_info.email}}</td>
                     <td>{{ applicant_info.application_code}}</td>
+                    <td>
+                        {% if applicant_info.user_image_name %}
+                            <a href="/static/user_images/{{applicant_info.user_image_name}}">
+                                <img style="height: 35px" src="/static/user_images/{{applicant_info.user_image_name}}">
+                            </a>
+                        {% endif %}
+                    </td>
                 </tr>
         </tbody>
     </table>

@@ -48,11 +48,12 @@ def another_girls_fullname_number(cursor):
 
 @database_common.connection_handler
 def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, request, app):
+    user_image_name = change_user_image_name(request, application_code)
     try:
         cursor.execute(
-            "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code) VALUES(%s, %s, %s, %s, %s)",
-            (first_name, last_name, phone_number, email, application_code))
-        upload_file(request, app)
+            "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_image_name) VALUES(%s, %s, %s, %s, %s, %s)",
+            (first_name, last_name, phone_number, email, application_code, user_image_name))
+        upload_file(request, app, user_image_name)
         return True
     except Exception:
         print("Something wrong with add_new_applicant")
@@ -166,15 +167,23 @@ def applicants_and_mentors(cursor):
     return names
 
 
-# is file type allowed
+# is file type allowed DON'T USED
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# secure saving users image
-def upload_file(request, app):
+# change user filename to saving
+def change_user_image_name(request, application_code):
     file = request.files['user_image']
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    user_image_name = secure_filename(file.filename)
+    splitted_name = user_image_name.split('.')
+    new_name = application_code+'.'+splitted_name[-1]
+    return new_name
+
+# secure saving users image
+def upload_file(request, app, user_image_name):
+    file = request.files['user_image']
+    filename = user_image_name
+    if file:
+         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))

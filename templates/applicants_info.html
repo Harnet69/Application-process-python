@@ -26,6 +26,7 @@ Arsenio, an applicant called us, that he and his friend applied to Codecool. The
                 <th>phone number</th>
                 <th>email</th>
                 <th>application code</th>
+                <th>applicant image</th>
                 <th>update</th>
                 <th>delete</th>
             </tr>
@@ -36,6 +37,13 @@ Arsenio, an applicant called us, that he and his friend applied to Codecool. The
                         <td>{{ applicant.phone_number}}</td>
                         <td>{{ applicant.email}}</td>
                         <td>{{ applicant.application_code}}</td>
+                        <td>
+                            {% if applicant.user_image_name %}
+                                <a href="/static/user_images/{{applicant.user_image_name}}">
+                                    <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
+                                </a>
+                            {% endif %}
+                        </td>
                         <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
                         <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
                     </tr>

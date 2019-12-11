@@ -5,6 +5,7 @@ UPLOAD_FOLDER = 'static/user_images'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # images size limit 1 Mb
 
 # menu data for quick links changing
 MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mentors names and lastnames'),
@@ -75,7 +76,6 @@ def add_new_applicant():
                                        request.form['email'], request.form['application_code'], request, app)
         application_code = request.form['application_code']
         return redirect(f'/applicant_info/{application_code}')
-        # return render_template(MENU_PAGES['applicant_info'][0],application_code=application_code)
     else:
         return render_template(MENU_PAGES['add_new_applicant'][1])
 
