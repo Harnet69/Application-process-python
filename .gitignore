@@ -88,6 +88,5 @@ venv/
 
 ENV/
 
-user_images/
 
 # End of https://www.gitignore.io/api/venv,pycharm
