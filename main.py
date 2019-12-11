@@ -1,7 +1,10 @@
 import data_manager
 from flask import Flask, render_template, request, redirect
 
+UPLOAD_FOLDER = 'static/user_images'
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # menu data for quick links changing
 MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mentors names and lastnames'),
@@ -68,9 +71,8 @@ def another_girls_fullname_number():
 @app.route('/add_new_applicant', methods=['GET', 'POST'])
 def add_new_applicant():
     if request.method == "POST":
-        data_manager.add_new_applicant(request.form['first_name'], request.form['last_name'],
-                                       request.form['phone_number'],
-                                       request.form['email'], request.form['application_code'])
+        data_manager.add_new_applicant(request.form['first_name'], request.form['last_name'], request.form['phone_number'],
+                                       request.form['email'], request.form['application_code'], request, app)
         application_code = request.form['application_code']
         return redirect(f'/applicant_info/{application_code}')
         # return render_template(MENU_PAGES['applicant_info'][0],application_code=application_code)

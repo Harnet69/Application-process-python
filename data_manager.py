@@ -1,4 +1,9 @@
+import os
+from flask import redirect
 import database_common
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
 @database_common.connection_handler
@@ -42,11 +47,12 @@ def another_girls_fullname_number(cursor):
 
 
 @database_common.connection_handler
-def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code):
+def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, request, app):
     try:
         cursor.execute(
             "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code) VALUES(%s, %s, %s, %s, %s)",
             (first_name, last_name, phone_number, email, application_code))
+        upload_file(request, app)
         return True
     except Exception:
         print("Something wrong with add_new_applicant")
@@ -150,10 +156,25 @@ def applicants(cursor):
     names = cursor.fetchall()
     return names\
 
+
 @database_common.connection_handler
 def applicants_and_mentors(cursor):
     cursor.execute(
             "SELECT applicants.first_name, applicants.application_code, mentors.first_name as mentors_name, mentors.last_name as mentors_lastname "
-        "FROM applicants LEFT JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.first_name")
+        "FROM applicants RIGHT JOIN mentors ON applicants.mentor_id = mentors.id ORDER BY applicants.first_name")
     names = cursor.fetchall()
     return names
+
+
+# is file type allowed
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# secure saving users image
+def upload_file(request, app):
+    file = request.files['user_image']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
