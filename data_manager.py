@@ -128,8 +128,8 @@ def delete_applicant(cursor, app_id):
 
 @database_common.connection_handler
 def delete_applicant_image(cursor, app_code):
-    file_to_delete = 'static/user_images/' + app_code['user_image_name']
     try:
+        file_to_delete = 'static/user_images/' + app_code['user_image_name']
         if os.path.exists(file_to_delete):
             os.remove(file_to_delete)
         else:
