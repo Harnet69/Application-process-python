@@ -213,6 +213,7 @@ def change_user_image_name(request, application_code):
         return new_name
     return False
 
+
 # secure saving users image
 def upload_file(request, app, user_image_name):
     file = request.files['user_image']
