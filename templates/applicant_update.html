@@ -2,21 +2,36 @@
 {% block title %}Update info about an applicant{% endblock %}
 {% block h1 %}Update info about an applicant{% endblock %}
 {% block content %}
-    <div id="quiz_list">
-        <form action="/applicant_update", method="POST">
-            <h3><label for="first_name">First name</label></h3>
-                <input type="text" id="first_name" name="first_name" value="{{ applicant_info_by_id.first_name }}">
-                <input hidden name="id" value="{{ applicant_info_by_id.id }}">
-            <h3><label for="last_name">Last name</label></h3>
-                <input type="text" id="last_name" name="last_name" value="{{ applicant_info_by_id.last_name }}">
-            <h3><label for="phone_number">Phone number</label></h3>
-                <input type="tel" id="phone_number" name="phone_number" value="{{ applicant_info_by_id.phone_number }}">
-            <h3><label for="email">E-mail</label></h3>
-                <input type="email" id="email" name="email" value="{{ applicant_info_by_id.email }}">
-            <h3><label for="application_code">Application code</label></h3>
-                <input type="number" id="application_code" name="application_code" value="{{ applicant_info_by_id.application_code }}">
-            <h3><input type="submit" value="Update"></h3>
-        </form>
+    <div class="jumbotron text-center">
+        <div class="row">
+            <div class="col-sm-2">
+                {% if applicant_info_by_id.user_image_name %}
+                    <a href="/static/user_images/{{applicant_info_by_id.user_image_name}}">
+                        <img style="width: 350px" src="/static/user_images/{{applicant_info_by_id.user_image_name}}">
+                    </a>
+                    {% else %}
+                    <a href="/static/user_images/{{applicant_info_by_id.user_image_name}}">
+                        <img style="width: 350px" src="/static/images/no-image.jpg">
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+               <form action="/applicant_update", method="POST">
+                    <h3><label for="first_name">First name</label></h3>
+                        <input type="text" id="first_name" name="first_name" value="{{ applicant_info_by_id.first_name }}">
+                        <input hidden name="id" value="{{ applicant_info_by_id.id }}">
+                    <h3><label for="last_name">Last name</label></h3>
+                        <input type="text" id="last_name" name="last_name" value="{{ applicant_info_by_id.last_name }}">
+                    <h3><label for="phone_number">Phone number</label></h3>
+                        <input type="tel" id="phone_number" name="phone_number" value="{{ applicant_info_by_id.phone_number }}">
+                    <h3><label for="email">E-mail</label></h3>
+                        <input type="email" id="email" name="email" value="{{ applicant_info_by_id.email }}">
+                    <h3><label for="application_code">Application code</label></h3>
+                        <input type="number" id="application_code" name="application_code" value="{{ applicant_info_by_id.application_code }}">
+                    <h3><input type="submit" value="Update"></h3>
+                </form>
+            </div>
+        </div>
     </div>
 
     {% include 'footer.html' %}

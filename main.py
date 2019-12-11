@@ -5,7 +5,7 @@ UPLOAD_FOLDER = 'static/user_images'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # images size limit 1 Mb
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # images size limit 2 Mb
 
 # menu data for quick links changing
 MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mentors names and lastnames'),
