@@ -10,6 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login_form.css')}}">
     </head>
     <header>
         <div class="jumbotron text-center">
@@ -17,11 +18,31 @@
                     <div class="col-sm-1">
                         <a href="/"><img src="{{ url_for('static', filename='images/logo_sm.png') }}"  id="go_to_home" alt="Return to main page"></a>
                     </div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <h1>{% block h1 %}{% endblock %}</h1>
                     </div>
-                    <div class="col-sm-1" id="user_log">
-                        {% block user %}{% endblock %}
+                    <div class="col-sm-3" id="user_log">
+                        {% block user %}
+                            <div class="wrapper fadeInDown">
+                              <div id="formContent">
+                                <!-- Tabs Titles -->
+                                  <label>For getting a full functionality you have to been logged</label>
+                                <!-- Icon -->
+                                <!-- Login Form -->
+                                <form style="height: 200px">
+                                  <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+                                  <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                                  <input type="submit" class="fadeIn fourth" value="Log In">
+                                </form>
+
+                                <!-- Remind Passowrd -->
+                                <div id="formFooter">
+                                  <a style="text-decoration: none" class="underlineHover" href="#">Not registered?</a>
+                                </div>
+
+                              </div>
+                            </div>
+                        {% endblock %}
                     </div>
                 </div>
         </div>

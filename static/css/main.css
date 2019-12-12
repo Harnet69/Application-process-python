@@ -126,11 +126,6 @@ footer {
     width: 150px;
 }
 
-#email, #password{
-    width: 200px;
-}
-
-
 .form-group textarea {
     width: 400px;
 }
