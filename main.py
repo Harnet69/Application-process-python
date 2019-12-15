@@ -24,7 +24,9 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'contacts': ('contacts', 'contacts.html', 'Contacts'),
               'applicants': ('applicants', 'applicants.html','Applicants page'),
               'applicants-and-mentors': ('applicants-and-mentors', 'applicants-and-mentors.html', 'Applicants and mentors'),
-              'sign_up': ('sign_up', 'sign_up.html', 'Sign up')
+              'sign_up': ('sign_up', 'sign_up.html', 'Sign up'),
+              'user': ('user', 'user.html', 'User'),
+              'edit': ('edit', 'edit.html', 'Edit')
               }
 
 
@@ -182,6 +184,38 @@ def sign_up():
     else:
         return render_template((MENU_PAGES['sign_up'][1]))
 
+
+# 15. User profile
+@app.route('/user/<login>', methods=['GET'])
+def user_profile(login):
+    user_info = data_manager.get_user_info_by_login(login)
+    if user_info:
+        return render_template(MENU_PAGES['user'][1], user_info=user_info, MENU_PAGES=MENU_PAGES)
+    else:
+        return redirect('/')
+
+
+# 16. User edit profile
+@app.route('/user/<login>/edit', methods=['GET', 'POST'])
+def user_profile_edit(login):
+    user_info = data_manager.get_user_info_by_login(login)
+    if request.method == 'GET':
+        if user_info:
+            return render_template(MENU_PAGES['edit'][1], user_info=user_info, MENU_PAGES=MENU_PAGES)
+        else:
+            return redirect('/')
+
+
+    # if edit != 0:
+    #     # add_new_user = data_manager.add_new_user(request.form['first_name'], request.form['last_name'], request.form['email'],
+    #     #                                request.form['login'], request.form['password'], request.form['confirm_password'],
+    #     #                                request, app)
+    #     # if add_new_user:
+    #     #     return redirect('/')
+    #     # else:
+    #     #     return render_template((MENU_PAGES['user'][1]), request=request)
+    #     redirect('applicants_info')
+    # else:
 
 
 

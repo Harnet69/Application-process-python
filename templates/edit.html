@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Edit user profile{% endblock %}
+{% block h1 %}Edit user profile{% endblock %}
+{% block content %}
+    <div style="margin-top: -100px" class="jumbotron text-center">
+        <div class="row">
+            <div class="col-sm-2">
+                {% if user_info.user_image %}
+                    <a href="/static/user_images/{{user_info.user_image}}">
+                        <img style="width: 350px" src="/static/user_images/{{user_info.user_image}}">
+                    </a>
+                    {% else %}
+                    <img style="width: 350px" src="/static/images/no-image.jpg">
+                {% endif %}
+            </div>
+            <div class="col-sm-8">
+               <form action="/edit" method="POST" enctype="multipart/form-data">
+                    <h6><label for="first_name">First name</label></h6>
+                        <input type="text" id="first_name" name="first_name" value="{{ user_info.first_name }}">
+                    <h6><label for="last_name">Last name</label></h6>
+                        <input type="text" id="last_name" name="last_name" value="{{ user_info.last_name }}">
+                    <h6><label for="email">E-mail</label></h6>
+                        <input type="email" id="email" name="email" value="{{ user_info.email }}">
+                    <h6><label for="password">Old password</label></h6>
+                        <input type="password" id="old_password" name="old_password"required>
+                    <h6><label for="new_password">New password</label></h6>
+                        <input type="password" id="new_password" name="new_password"required>
+                    <h6><label for="password">Confirm new password</label></h6>
+                        <input type="password" id="confirm_password" name="confirm_password">
+                    <h6><label for="user_image">Profile photo</label></h6>
+                        <input type="file" id="user_image" name="user_image">
+                    <h6><input type="submit" value="Update"></h6>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

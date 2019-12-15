@@ -2,6 +2,7 @@ import os
 from flask import redirect
 import database_common
 from werkzeug.utils import secure_filename
+import user_functions
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -250,20 +251,32 @@ def upload_file(request, app, user_image_name):
 def add_new_user(cursor, first_name, last_name, email, login, password, confirm_password, request, app):
     #  if users password is not match with confirm_password
     if password == confirm_password:
+        hashed_password = user_functions.hash_password(password)
         user_image_name = change_user_image_name(request, login)
         try:
             if user_image_name:
-                # cursor.execute(
-                #     "INSERT INTO users(first_name, last_name, email, login, password, user_image) VALUES(%s, %s, %s, %s, %s, %s)",
-                #     (first_name, last_name, email, login, password, user_image_name))
-                # upload_file(request, app, user_image_name)
+                cursor.execute(
+                    "INSERT INTO users(first_name, last_name, email, login, password, user_image) VALUES(%s, %s, %s, %s, %s, %s)",
+                    (first_name, last_name, email, login, hashed_password, user_image_name))
+                upload_file(request, app, user_image_name)
                 return True
             else:
-                # cursor.execute(
-                #     "INSERT INTO users(first_name, last_name, email, login, password) VALUES(%s, %s, %s, %s, %s)",
-                #     (first_name, last_name, email, login, password))
+                cursor.execute(
+                    "INSERT INTO users(first_name, last_name, email, login, password) VALUES(%s, %s, %s, %s, %s)",
+                    (first_name, last_name, email, login, hashed_password))
                 return True
         except Exception:
             print("Something wrong with add_new_user")
     else:
         return False
+
+
+# get user info by login
+@database_common.connection_handler
+def get_user_info_by_login(cursor, login):
+    try:
+        cursor.execute("SELECT first_name, last_name, email, login, user_image FROM users WHERE login = %s", (login,))
+        user_info_by_login = cursor.fetchone()
+        return user_info_by_login
+    except Exception:
+        print("Something wrong with get_user_info_by_login")
