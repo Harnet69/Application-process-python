@@ -275,8 +275,49 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
 @database_common.connection_handler
 def get_user_info_by_login(cursor, login):
     try:
-        cursor.execute("SELECT first_name, last_name, email, login, user_image FROM users WHERE login = %s", (login,))
+        cursor.execute("SELECT first_name, last_name, email, login, user_image, id FROM users WHERE login = %s", (login,))
         user_info_by_login = cursor.fetchone()
         return user_info_by_login
     except Exception:
         print("Something wrong with get_user_info_by_login")
+
+
+# get user password by login
+@database_common.connection_handler
+def get_user_password_by_login(cursor, login):
+    try:
+        cursor.execute("SELECT password FROM users WHERE login = %s", (login,))
+        user_password = cursor.fetchone()
+        return user_password
+    except Exception:
+        print("Something wrong with get_user_password")
+
+
+# edit user
+@database_common.connection_handler
+def edit_user_information(cursor, first_name, last_name, email, login, old_password, new_password, confirm_password, id, request, app):
+    #  if users password is not match with confirm_password
+    psw_from_db = get_user_password_by_login(login)
+    if user_functions.verify_password(old_password, psw_from_db['password']):
+        if new_password == confirm_password:
+            hashed_password = user_functions.hash_password(new_password)
+            user_image_name = change_user_image_name(request, login)
+            try:
+                file = request.files['user_image']
+                if file:
+                    upload_file(request, app, user_image_name)
+                    cursor.execute(
+                        "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s, user_image = %s WHERE id = %s",
+                        (first_name, last_name, email, hashed_password, user_image_name, id))
+                else:
+                    cursor.execute(
+                        "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE id = %s",
+                        (first_name, last_name, email, hashed_password, id))
+                return True
+            except Exception:
+                print("Something wrong with add_new_user")
+        else:
+            return False
+    else:
+        print("Passwords NOT Mach!!!")
+        return False

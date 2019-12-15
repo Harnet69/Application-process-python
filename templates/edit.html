@@ -21,15 +21,17 @@
                         <input type="text" id="last_name" name="last_name" value="{{ user_info.last_name }}">
                     <h6><label for="email">E-mail</label></h6>
                         <input type="email" id="email" name="email" value="{{ user_info.email }}">
+                    <input hidden type="text"name="id" value="{{ user_info.id }}">
+                    <input hidden type="text"name="login" value="{{ user_info.login }}">
                     <h6><label for="password">Old password</label></h6>
-                        <input type="password" id="old_password" name="old_password"required>
+                        <input type="password" id="old_password" name="old_password">
                     <h6><label for="new_password">New password</label></h6>
-                        <input type="password" id="new_password" name="new_password"required>
+                        <input type="password" id="new_password" name="new_password">
                     <h6><label for="password">Confirm new password</label></h6>
                         <input type="password" id="confirm_password" name="confirm_password">
                     <h6><label for="user_image">Profile photo</label></h6>
                         <input type="file" id="user_image" name="user_image">
-                    <h6><input type="submit" value="Update"></h6>
+                    <h6><input type="submit" formaction="/user/{{ user_info.login }}/edit" formmethod="POST" value="Update"></h6>
                 </form>
             </div>
         </div>

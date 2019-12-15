@@ -199,25 +199,16 @@ def user_profile(login):
 @app.route('/user/<login>/edit', methods=['GET', 'POST'])
 def user_profile_edit(login):
     user_info = data_manager.get_user_info_by_login(login)
-    if request.method == 'GET':
+    if request.method == 'POST':
+        data_manager.edit_user_information(request.form['first_name'], request.form['last_name'], request.form['email'],
+                                       request.form['login'], request.form['old_password'],request.form['new_password'],
+                                       request.form['confirm_password'],request.form['id'], request, app)
+        return redirect(f'/user/{login}')
+    else:
         if user_info:
             return render_template(MENU_PAGES['edit'][1], user_info=user_info, MENU_PAGES=MENU_PAGES)
         else:
             return redirect('/')
-
-
-    # if edit != 0:
-    #     # add_new_user = data_manager.add_new_user(request.form['first_name'], request.form['last_name'], request.form['email'],
-    #     #                                request.form['login'], request.form['password'], request.form['confirm_password'],
-    #     #                                request, app)
-    #     # if add_new_user:
-    #     #     return redirect('/')
-    #     # else:
-    #     #     return render_template((MENU_PAGES['user'][1]), request=request)
-    #     redirect('applicants_info')
-    # else:
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
