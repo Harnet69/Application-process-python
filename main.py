@@ -1,4 +1,4 @@
-import data_manager
+import data_manager, user_functions
 from flask import Flask, render_template, request, redirect
 
 UPLOAD_FOLDER = 'static/user_images'
@@ -168,9 +168,21 @@ def applicants_and_mentors():
 
 
 # 15. Sign up page
-@app.route('/sign-up')
+@app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    return render_template((MENU_PAGES['sign_up'][1]))
+    if request.method == 'POST':
+        add_new_user = data_manager.add_new_user(request.form['first_name'], request.form['last_name'], request.form['email'],
+                                       request.form['login'], request.form['password'], request.form['confirm_password'],
+                                       request, app)
+        if add_new_user:
+            return redirect('/')
+        else:
+            return render_template((MENU_PAGES['sign_up'][1]), request=request)
+
+    else:
+        return render_template((MENU_PAGES['sign_up'][1]))
+
+
 
 
 if __name__ == '__main__':

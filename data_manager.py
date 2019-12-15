@@ -243,3 +243,27 @@ def upload_file(request, app, user_image_name):
     filename = user_image_name
     if file:
          file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+
+# add new user
+@database_common.connection_handler
+def add_new_user(cursor, first_name, last_name, email, login, password, confirm_password, request, app):
+    #  if users password is not match with confirm_password
+    if password == confirm_password:
+        user_image_name = change_user_image_name(request, login)
+        try:
+            if user_image_name:
+                # cursor.execute(
+                #     "INSERT INTO users(first_name, last_name, email, login, password, user_image) VALUES(%s, %s, %s, %s, %s, %s)",
+                #     (first_name, last_name, email, login, password, user_image_name))
+                # upload_file(request, app, user_image_name)
+                return True
+            else:
+                # cursor.execute(
+                #     "INSERT INTO users(first_name, last_name, email, login, password) VALUES(%s, %s, %s, %s, %s)",
+                #     (first_name, last_name, email, login, password))
+                return True
+        except Exception:
+            print("Something wrong with add_new_user")
+    else:
+        return False
