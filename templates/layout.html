@@ -24,7 +24,13 @@
                     <div class="col-sm-3" id="user_log">
                         {% block user %}
                             {% if 'username' in session %}
-                                <lable>{{ session['username'] }}! You're logged in</lable>
+                                <div style="margin-top: -28px">
+                                    <a href="user/{{ session['username'] }}">{{ session['username'] }}</a>
+                                    <img style="width: 50px" src="/static/user_images/{{ session['user_image']}}">
+                                    <form style="height: 60px" action="/logout" method="POST">
+                                        <input type="button" value="Log Out">
+                                    </form>
+                                </div>
                             {% else %}
                                 <div class="wrapper fadeInDown">
                                     <div id="formContent">

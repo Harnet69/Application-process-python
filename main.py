@@ -219,9 +219,11 @@ def login():
         login_pass_from_db = data_manager.get_login_password_from_db(request.form['login'])
         if login_pass_from_db:
             if user_functions.verify_password(request.form['login'],login_pass_from_db['password']):
+                user_info = data_manager.get_user_info_by_login(request.form['login'])
                 print('Access granted')
                 session['username'] = request.form['login']
-                return redirect('/')
+                session['user_image'] = user_info['user_image']
+                return redirect(request.referrer)
             else:
                 print('Access denied')
                 return redirect('/')
