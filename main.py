@@ -1,11 +1,13 @@
 import data_manager, user_functions
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, escape, url_for
 
 UPLOAD_FOLDER = 'static/user_images'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # images size limit 2 Mb
+# Set the secret key to some random bytes. Keep this really secret!
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # menu data for quick links changing
 MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mentors names and lastnames'),
@@ -209,6 +211,22 @@ def user_profile_edit(login):
             return render_template(MENU_PAGES['edit'][1], user_info=user_info, MENU_PAGES=MENU_PAGES)
         else:
             return redirect('/')
+
+# 17. Login
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        login_pass_from_db = data_manager.get_login_password_from_db(request.form['login'])
+        if login_pass_from_db:
+            if user_functions.verify_password(request.form['login'],login_pass_from_db['password']):
+                print('Access granted')
+                session['username'] = request.form['login']
+                return redirect('/')
+            else:
+                print('Access denied')
+                return redirect('/')
+    return redirect('/')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

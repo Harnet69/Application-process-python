@@ -23,25 +23,27 @@
                     </div>
                     <div class="col-sm-3" id="user_log">
                         {% block user %}
-                            <div class="wrapper fadeInDown">
-                              <div id="formContent">
-                                <!-- Tabs Titles -->
-                                  <label style="color: red">For getting a full functionality you have to been logged</label>
-                                <!-- Icon -->
-                                <!-- Login Form -->
-                                <form style="height: 130px">
-                                  <input style="width: 145px" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                                  <input style="width: 145px" type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                                  <input type="submit" class="fadeIn fourth" value="Log In">
-                                </form>
-
-                                <!-- Remind Passowrd -->
-                                <div id="formFooter">
-                                  <a style="text-decoration: none" class="underlineHover" href="{{ url_for('sign_up') }}">Not registered? Sign up, than :)</a>
+                            {% if 'username' in session %}
+                                <lable>{{ session['username'] }}! You're logged in</lable>
+                            {% else %}
+                                <div class="wrapper fadeInDown">
+                                    <div id="formContent">
+                                        <!-- Tabs Titles -->
+                                          <label style="color: red">For getting a full functionality you have to been logged</label>
+                                        <!-- Icon -->
+                                        <!-- Login Form -->
+                                            <form action="/login" method="POST" style="height: 130px">
+                                              <input style="width: 145px" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+                                              <input style="width: 145px" type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+                                              <input type="submit" class="fadeIn fourth" value="Log In">
+                                            </form>
+                                        <!-- Remind Passowrd -->
+                                        <div id="formFooter">
+                                          <a style="text-decoration: none" class="underlineHover" href="{{ url_for('sign_up') }}">Not registered? Sign up, than :)</a>
+                                        </div>
+                                    </div>
                                 </div>
-
-                              </div>
-                            </div>
+                            {% endif %}
                         {% endblock %}
                     </div>
                 </div>

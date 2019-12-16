@@ -293,12 +293,13 @@ def get_user_password_by_login(cursor, login):
         print("Something wrong with get_user_password")
 
 
-# edit user
+# edit user information
 @database_common.connection_handler
 def edit_user_information(cursor, first_name, last_name, email, login, old_password, new_password, confirm_password, id, request, app):
-    #  if users password is not match with confirm_password
     psw_from_db = get_user_password_by_login(login)
+    # if user password is the same pass in a database
     if user_functions.verify_password(old_password, psw_from_db['password']):
+        #  if users password is not match with confirm_password
         if new_password == confirm_password:
             hashed_password = user_functions.hash_password(new_password)
             user_image_name = change_user_image_name(request, login)
@@ -321,3 +322,14 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
     else:
         print("Passwords NOT Mach!!!")
         return False
+
+
+# is user login in database
+@database_common.connection_handler
+def get_login_password_from_db(cursor, login):
+    try:
+        cursor.execute("SELECT login, password FROM users WHERE login = %s", (login,))
+        user_login_password = cursor.fetchone()
+        return user_login_password
+    except Exception:
+        print("Something wrong with is_login_in_db")
