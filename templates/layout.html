@@ -24,9 +24,13 @@
                     <div class="col-sm-3" id="user_log">
                         {% block user %}
                             {% if 'username' in session %}
-                                <div style="margin-top: -28px">
+                                <div style="margin-top: -27px">
                                     <a href="user/{{ session['username'] }}">{{ session['username'] }}</a>
-                                    <img style="width: 50px" src="/static/user_images/{{ session['user_image']}}">
+                                    {% if session['user_image'] %}
+                                        <img style="height: 50px" src="/static/user_images/{{ session['user_image']}}">
+                                    {% else %}
+                                        <img style="height: 50px" src="/static/images/no-image.jpg">
+                                    {% endif %}
                                     <form style="height: 60px" action="/logout" method="POST">
                                         <input type="button" value="Log Out">
                                     </form>
