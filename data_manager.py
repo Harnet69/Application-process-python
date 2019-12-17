@@ -3,7 +3,6 @@ from flask import redirect
 import database_common
 from werkzeug.utils import secure_filename
 import user_functions
-from flask import session
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -228,6 +227,7 @@ def change_user_image_name(request, application_code):
     user_image_name = secure_filename(file.filename)
     split_name = user_image_name.split('.')
     extension = split_name[-1]
+    print(extension)
     if user_image_name and extension.lower() in ALLOWED_EXTENSIONS:
         new_name = application_code+'.'+extension.lower()
         return new_name
@@ -306,7 +306,6 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
                     file = request.files['user_image']
                     if file:
                         upload_file(request, app, user_image_name)
-                        session['user_image'] = request.files['user_image']
                         cursor.execute(
                             "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s, user_image = %s WHERE id = %s",
                             (first_name, last_name, email, hashed_password, user_image_name, id))
