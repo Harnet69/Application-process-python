@@ -221,22 +221,16 @@ def applicants_and_mentors(cursor):
     return names
 
 
-# is file type allowed DON'T USED
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-# change user filename to saving
+# check if file extention is allowed and change user filename to saving
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
-    if allowed_file(file):
-        user_image_name = secure_filename(file.filename)
-        if user_image_name:
-            splitted_name = user_image_name.split('.')
-            new_name = application_code+'.'+splitted_name[-1]
-            return new_name
-        return False
+    user_image_name = secure_filename(file.filename)
+    split_name = user_image_name.split('.')
+    print(split_name[-1])
+    if user_image_name and split_name[-1] in ALLOWED_EXTENSIONS:
+        new_name = application_code+'.'+split_name[-1]
+        return new_name
+    return False
     print("Your file isn't image!")  # TODO show message to user if its image isn't image
     return False
 
