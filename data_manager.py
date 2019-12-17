@@ -1,5 +1,5 @@
 import os
-from flask import redirect
+from flask import flash
 import database_common
 from werkzeug.utils import secure_filename
 import user_functions
@@ -99,11 +99,6 @@ def get_applicant_info_by_id(cursor, id):
 
 @database_common.connection_handler
 def update_applicant_information(cursor, first_name, last_name, phone_number, email, application_code, id, request, app):
-    # # if application code was changed we have to rewrite filename of user image
-    # app_code_from_db = get_applicant_application_code(id)
-    # # if application code was changed
-    # if int(application_code) != int(app_code_from_db['application_code']):
-    #     print(f'{application_code} != ')
     try:
         user_image_name = change_user_image_name(request, application_code)
         file = request.files['user_image']
@@ -221,7 +216,7 @@ def applicants_and_mentors(cursor):
     return names
 
 
-# check if file extension is allowed and change user filename to saving
+# check if file extension is allowed and change user filename for saving
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
     user_image_name = secure_filename(file.filename)
@@ -231,6 +226,7 @@ def change_user_image_name(request, application_code):
         new_name = application_code+'.'+extension.lower()
         return new_name
     print("Your file isn't image!")  # TODO show message to user if its image isn't image
+    flash(f"Format '{extension}' isn't allowed! Send only images!")
     return False
 
 
@@ -249,6 +245,8 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
     if password == confirm_password:
         hashed_password = user_functions.hash_password(password)
         user_image_name = change_user_image_name(request, login)
+        if not user_image_name:
+            return False
         try:
             if user_image_name:
                 cursor.execute(
@@ -264,6 +262,7 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
         except Exception:
             print("Something wrong with add_new_user")
     else:
+        flash("passwords aren't mach")
         return False
 
 

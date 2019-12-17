@@ -26,6 +26,13 @@
                 <input type="password" id="confirm_password" name="confirm_password" required>
             <h5><label for="user_image">Profile photo(optional)</label></h5>
                 <input type="file" id="user_image" name="user_image">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                            {% for message in messages %}
+                                <label style="color: red">{{ message }}</label>
+                            {% endfor %}
+                    {% endif %}
+                {% endwith %}
             <h5><input type="submit" value="Send"></h5>
         </form>
     </div>

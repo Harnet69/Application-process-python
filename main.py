@@ -1,5 +1,5 @@
 import data_manager, user_functions
-from flask import Flask, render_template, request, redirect, session, escape, url_for
+from flask import Flask, flash, render_template, request, redirect, session, escape, url_for
 
 UPLOAD_FOLDER = 'static/user_images'
 
@@ -184,7 +184,6 @@ def sign_up():
             return redirect('/')
         else:
             return render_template((MENU_PAGES['sign_up'][1]), request=request, is_sign_up_page = True)
-
     else:
         return render_template((MENU_PAGES['sign_up'][1]), is_sign_up_page = True)
 
