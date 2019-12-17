@@ -16,11 +16,11 @@
             <div class="col-sm-8">
                <form action="/edit" method="POST" enctype="multipart/form-data">
                     <h6><label for="first_name">First name</label></h6>
-                        <input type="text" id="first_name" name="first_name" value="{{ user_info.first_name }}">
+                        <input type="text" id="first_name" name="first_name" value="{{ user_info.first_name }}" required>
                     <h6><label for="last_name">Last name</label></h6>
-                        <input type="text" id="last_name" name="last_name" value="{{ user_info.last_name }}">
+                        <input type="text" id="last_name" name="last_name" value="{{ user_info.last_name }}" required>
                     <h6><label for="email">E-mail</label></h6>
-                        <input type="email" id="email" name="email" value="{{ user_info.email }}">
+                        <input type="email" id="email" name="email" value="{{ user_info.email }}" required>
                     <input hidden type="text"name="id" value="{{ user_info.id }}">
                     <input hidden type="text"name="login" value="{{ user_info.login }}">
                     <h6><label for="password">Old password</label></h6>

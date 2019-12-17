@@ -230,11 +230,14 @@ def allowed_file(filename):
 # change user filename to saving
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
-    user_image_name = secure_filename(file.filename)
-    if user_image_name:
-        splitted_name = user_image_name.split('.')
-        new_name = application_code+'.'+splitted_name[-1]
-        return new_name
+    if allowed_file(file):
+        user_image_name = secure_filename(file.filename)
+        if user_image_name:
+            splitted_name = user_image_name.split('.')
+            new_name = application_code+'.'+splitted_name[-1]
+            return new_name
+        return False
+    print("Your file isn't image!")  # TODO show message to user if its image isn't image
     return False
 
 

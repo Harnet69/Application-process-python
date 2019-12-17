@@ -183,7 +183,7 @@ def sign_up():
         if add_new_user:
             return redirect('/')
         else:
-            return render_template((MENU_PAGES['sign_up'][1]), request=request)
+            return render_template((MENU_PAGES['sign_up'][1]), request=request, is_sign_up_page = True)
 
     else:
         return render_template((MENU_PAGES['sign_up'][1]), is_sign_up_page = True)
