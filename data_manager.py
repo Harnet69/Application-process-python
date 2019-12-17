@@ -221,26 +221,25 @@ def applicants_and_mentors(cursor):
     return names
 
 
-# check if file extention is allowed and change user filename to saving
+# check if file extension is allowed and change user filename to saving
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
     user_image_name = secure_filename(file.filename)
     split_name = user_image_name.split('.')
-    print(split_name[-1])
-    if user_image_name and split_name[-1] in ALLOWED_EXTENSIONS:
-        new_name = application_code+'.'+split_name[-1]
+    extension = split_name[-1]
+    if user_image_name and extension.lower() in ALLOWED_EXTENSIONS:
+        new_name = application_code+'.'+extension.lower()
         return new_name
-    return False
     print("Your file isn't image!")  # TODO show message to user if its image isn't image
     return False
 
 
-# secure saving users image
+# saving users image
 def upload_file(request, app, user_image_name):
     file = request.files['user_image']
     filename = user_image_name
     if file:
-         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 
 # add new user
