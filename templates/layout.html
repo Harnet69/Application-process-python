@@ -32,7 +32,8 @@
                                         <img style="height: 50px" src="/static/images/no-image.jpg">
                                     {% endif %}
                                     <form style="height: 60px" action="/logout" method="POST">
-                                        <input type="button" value="Log Out">
+                                        <input type="text" name="username" value="{{ session['username'] }}" hidden>
+                                        <input type="submit" value="Log Out">
                                     </form>
                                 </div>
                             {% else %}

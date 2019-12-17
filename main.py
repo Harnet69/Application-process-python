@@ -212,6 +212,7 @@ def user_profile_edit(login):
         else:
             return redirect('/')
 
+
 # 17. Login
 @app.route('/login', methods=['POST'])
 def login():
@@ -227,6 +228,15 @@ def login():
             else:
                 print('Access denied')
                 return redirect('/')
+    return redirect('/')
+
+
+# 18. Logout
+@app.route('/logout', methods=['POST'])
+def logout():
+    if request.method == 'POST':
+        # remove the username from the session if it's there
+        session.pop('username', None)
     return redirect('/')
 
 
