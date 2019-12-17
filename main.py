@@ -26,7 +26,7 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'contacts': ('contacts', 'contacts.html', 'Contacts'),
               'applicants': ('applicants', 'applicants.html','Applicants page'),
               'applicants-and-mentors': ('applicants-and-mentors', 'applicants-and-mentors.html', 'Applicants and mentors'),
-              'sign_up': ('sign_up', 'sign_up.html', 'Sign up'),
+              'sign_up': ('sign-up', 'sign_up.html', 'Sign up'),
               'user': ('user', 'user.html', 'User'),
               'edit': ('edit', 'edit.html', 'Edit')
               }
@@ -76,14 +76,16 @@ def another_girls_fullname_number():
 # 5.1 Add new applicant
 @app.route('/add_new_applicant', methods=['GET', 'POST'])
 def add_new_applicant():
-    if request.method == "POST":
-        data_manager.add_new_applicant(request.form['first_name'], request.form['last_name'], request.form['phone_number'],
-                                       request.form['email'], request.form['application_code'], request, app)
-        application_code = request.form['application_code']
-        return redirect(f'/applicant_info/{application_code}')
+    if 'username' in session:
+        if request.method == "POST":
+            data_manager.add_new_applicant(request.form['first_name'], request.form['last_name'], request.form['phone_number'],
+                                           request.form['email'], request.form['application_code'], request, app)
+            application_code = request.form['application_code']
+            return redirect(f'/applicant_info/{application_code}')
+        else:
+            return render_template(MENU_PAGES['add_new_applicant'][1])
     else:
-        return render_template(MENU_PAGES['add_new_applicant'][1])
-
+        return redirect(MENU_PAGES['sign_up'][0])
 
 # 5.2 Display recently added applicant
 @app.route('/applicant_info')
@@ -184,7 +186,7 @@ def sign_up():
             return render_template((MENU_PAGES['sign_up'][1]), request=request)
 
     else:
-        return render_template((MENU_PAGES['sign_up'][1]))
+        return render_template((MENU_PAGES['sign_up'][1]), is_sign_up_page = True)
 
 
 # 15. User profile

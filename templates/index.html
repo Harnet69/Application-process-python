@@ -9,7 +9,9 @@
             <li><a href="{{ url_for('miskolc_mentors_nicknames') }}">{{ MENU_PAGES['miskolc_mentors_nicknames'][1] }}</a></li>
             <li><a href="{{ url_for('carols_fullname_number') }}">{{ MENU_PAGES['carols_fullname_number'][1] }}</a></li>
             <li><a href="{{ url_for('another_girls_fullname_number') }}">{{MENU_PAGES['another_girls_fullname_number'][1]}}</a></li>
-            <li><a href="{{ url_for('add_new_applicant') }}">{{MENU_PAGES['add_new_applicant'][2]}}</a></li>
+            {% if 'username' in session %}
+                <li><a href="{{ url_for('add_new_applicant') }}">{{MENU_PAGES['add_new_applicant'][2]}}</a></li>
+            {% endif %}
             <li><a href="{{ url_for('applicants_info') }}">{{MENU_PAGES['applicants_info'][2]}}</a></li>
     </ol>
         <h2>3th week assignmens:</h2>

@@ -14,9 +14,11 @@ Arsenio, an applicant called us, that he and his friend applied to Codecool. The
         Write DELETE query to remove all the applicants, who applied with emails for this domain (e-mail address has this domain
         after the @ sign).
     </p>
-    <form>
-        <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
-    </form>
+    {% if 'username' in session %}
+        <form>
+            <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
+        </form>
+    {% endif %}
     <table id="quizes_list_table">
         <thead></thead>
         <tbody>
@@ -27,8 +29,10 @@ Arsenio, an applicant called us, that he and his friend applied to Codecool. The
                 <th>email</th>
                 <th>application code</th>
                 <th>applicant image</th>
-                <th>update</th>
-                <th>delete</th>
+                {% if 'username' in session %}
+                    <th>update</th>
+                    <th>delete</th>
+                {% endif %}
             </tr>
                 {% for applicant in applicants_info %}
                     <tr>
@@ -44,8 +48,10 @@ Arsenio, an applicant called us, that he and his friend applied to Codecool. The
                                 </a>
                             {% endif %}
                         </td>
-                        <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
-                        <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                        {% if 'username' in session %}
+                            <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
+                            <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
         </tbody>

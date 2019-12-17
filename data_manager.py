@@ -296,32 +296,52 @@ def get_user_password_by_login(cursor, login):
 # edit user information
 @database_common.connection_handler
 def edit_user_information(cursor, first_name, last_name, email, login, old_password, new_password, confirm_password, id, request, app):
-    psw_from_db = get_user_password_by_login(login)
-    # if user password is the same pass in a database
-    if user_functions.verify_password(old_password, psw_from_db['password']):
-        #  if users password is not match with confirm_password
-        if new_password == confirm_password:
-            hashed_password = user_functions.hash_password(new_password)
-            user_image_name = change_user_image_name(request, login)
-            try:
-                file = request.files['user_image']
-                if file:
-                    upload_file(request, app, user_image_name)
-                    cursor.execute(
-                        "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s, user_image = %s WHERE id = %s",
-                        (first_name, last_name, email, hashed_password, user_image_name, id))
-                else:
-                    cursor.execute(
-                        "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE id = %s",
-                        (first_name, last_name, email, hashed_password, id))
-                return True
-            except Exception:
-                print("Something wrong with add_new_user")
+    # if user want to change a password
+    if old_password and new_password and confirm_password:
+        psw_from_db = get_user_password_by_login(login)
+        # if user password is the same password from a database
+        if user_functions.verify_password(old_password, psw_from_db['password']):
+            #  if users password match with confirm_password
+            if new_password == confirm_password:
+                hashed_password = user_functions.hash_password(new_password)
+                user_image_name = change_user_image_name(request, login)
+                try:
+                    file = request.files['user_image']
+                    if file:
+                        upload_file(request, app, user_image_name)
+                        cursor.execute(
+                            "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s, user_image = %s WHERE id = %s",
+                            (first_name, last_name, email, hashed_password, user_image_name, id))
+                    else:
+                        cursor.execute(
+                            "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE id = %s",
+                            (first_name, last_name, email, hashed_password, id))
+                    return True
+                except Exception:
+                    print("Something wrong with add_new_user")
+            else:
+                return False
         else:
+            print("Passwords NOT Mach!!!")
             return False
+    # if user don't change a password
     else:
-        print("Passwords NOT Mach!!!")
-        return False
+        user_image_name = change_user_image_name(request, login)
+        try:
+            file = request.files['user_image']
+            if file:
+                upload_file(request, app, user_image_name)
+                cursor.execute(
+                    "UPDATE users SET first_name = %s, last_name = %s, email = %s,user_image = %s WHERE id = %s",
+                    (first_name, last_name, email, user_image_name, id))
+            else:
+                cursor.execute(
+                    "UPDATE users SET first_name = %s, last_name = %s, email = %s WHERE id = %s",
+                    (first_name, last_name, email, id))
+            return True
+        except Exception:
+            print("Something wrong with add_new_user")
+            return False
 
 
 # is user login in database
