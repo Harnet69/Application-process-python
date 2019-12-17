@@ -227,7 +227,6 @@ def change_user_image_name(request, application_code):
     user_image_name = secure_filename(file.filename)
     split_name = user_image_name.split('.')
     extension = split_name[-1]
-    print(extension)
     if user_image_name and extension.lower() in ALLOWED_EXTENSIONS:
         new_name = application_code+'.'+extension.lower()
         return new_name
