@@ -3,6 +3,7 @@ from flask import redirect
 import database_common
 from werkzeug.utils import secure_filename
 import user_functions
+from flask import session
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -305,6 +306,7 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
                     file = request.files['user_image']
                     if file:
                         upload_file(request, app, user_image_name)
+                        session['user_image'] = request.files['user_image']
                         cursor.execute(
                             "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s, user_image = %s WHERE id = %s",
                             (first_name, last_name, email, hashed_password, user_image_name, id))
