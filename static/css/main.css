@@ -38,6 +38,14 @@ input:invalid {
   border: 2px solid red;
 }
 
+.update{
+    text-align: left;
+}
+
+.update p label{
+    width: 120px;
+  }
+
 #sign_up{
     margin-left: 60px;
 }
