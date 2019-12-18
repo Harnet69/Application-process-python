@@ -1,36 +1,3 @@
-
-/*!* BASIC *!*/
-
-/*html {*/
-/*  background-color: #56baed;*/
-/*}*/
-
-/*body {*/
-/*  font-family: "Poppins", sans-serif;*/
-/*  height: 100vh;*/
-/*}*/
-
-/*a {*/
-/*  color: #92badd;*/
-/*  display:inline-block;*/
-/*  text-decoration: none;*/
-/*  font-weight: 400;*/
-/*}*/
-
-/*h2 {*/
-/*  text-align: center;*/
-/*  font-size: 16px;*/
-/*  font-weight: 600;*/
-/*  text-transform: uppercase;*/
-/*  display:inline-block;*/
-/*  margin: 40px 8px 10px 8px;*/
-/*  color: #cccccc;*/
-/*}*/
-
-
-
-/* STRUCTURE */
-
 .wrapper {
   position: absolute;
   margin-top: -25px;
@@ -55,7 +22,7 @@
 }
 
 #formFooter {
-  margin-top: 55px;
+  margin-top: 60px;
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
   padding: 5px;
@@ -64,8 +31,6 @@
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
-
-
 
 /* TABS */
 
