@@ -250,8 +250,8 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
     if password == confirm_password:
         hashed_password = user_functions.hash_password(password)
         user_image_name = change_user_image_name(request, login)
-        # if not user`_image_name:
-        #     return False`
+        if not user_image_name:
+            return False
         try:
             if user_image_name:
                 cursor.execute(
