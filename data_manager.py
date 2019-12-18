@@ -316,6 +316,7 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
                         cursor.execute(
                             "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE id = %s",
                             (first_name, last_name, email, hashed_password, id))
+                    flash("User's information and password have been updated!")
                     return True
                 except Exception:
                     print("Something wrong with add_new_user")
@@ -339,6 +340,7 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
                 cursor.execute(
                     "UPDATE users SET first_name = %s, last_name = %s, email = %s WHERE id = %s",
                     (first_name, last_name, email, id))
+            flash("User's information has been updated!")
             return True
         except Exception:
             print("Something wrong with add_new_user")

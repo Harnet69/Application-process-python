@@ -13,13 +13,20 @@
                         <img style="width: 350px" src="/static/images/no-image.jpg">
                 {% endif %}
             </div>
-            <div class="col-sm-8">
+            <div class="update" class="col-sm-8">
                <h5>First name : {{ user_info.first_name }}</h5>
                <h5>Last name : {{ user_info.last_name }}</h5>
                <h5>Login : {{ user_info.login }}</h5>
                <h5>E-mail : {{ user_info.email }}</h5>
+               {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <label style="color: red">{{ message }}</label>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 <form>
-                    <button type="submit" formaction="{{ user_info.login }}/edit" formmethod="get">Update</button>
+                    <button class="btn btn-primary" type="submit" formaction="{{ user_info.login }}/edit" formmethod="get">Update</button>
                 </form>
             </div>
         </div>
