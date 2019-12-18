@@ -41,7 +41,15 @@
                                     {% else %}
                                         <div class="wrapper fadeInDown">
                                             <div id="formContent">
-                                                <label style="color: red">For getting a full functionality you have to been logged</label>
+                                                {% with messages = get_flashed_messages() %}
+                                                    {% if messages %}
+                                                        {% for message in messages %}
+                                                            <label style="color: red">{{ message }}</label>
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <label style="color: red">Want full functionality? Just log in!</label>
+                                                    {% endif %}
+                                                {% endwith %}
                                                 <form action="/login" method="POST" style="height: 130px">
                                                   <input style="width: 145px" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
                                                   <input style="width: 145px" type="password" id="password" class="fadeIn third" name="password" placeholder="password">

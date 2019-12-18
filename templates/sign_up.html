@@ -11,13 +11,13 @@
             <h5><label for="email">E-mail</label></h5>
                 <input type="email" id="email" name="email"  value="{{ request.form['email']}}" required>
             <h5><label for="login">Login</label></h5>
-                <input type="text" id="login" name="login"  value="{{ request.form['login']}}" required>
+                <input pattern=".{5,}" required title="5 characters minimum" type="text" id="login" name="login"  value="{{ request.form['login']}}" required>
                 {% if request.form['password'] %}
                     <h5><label style="color: red" for="password">Password</label></h5>
                 {% else %}
                     <h5><label for="password">Password</label></h5>
                 {% endif %}
-                <input type="password" id="password" name="password"required>
+                <input pattern=".{5,}" required title="5 characters minimum" type="password" id="password" name="password"required>
                 {% if request.form['confirm_password'] %}
                     <h5><label style="color: red" for="password">Confirm password</label></h5>
                 {% else %}

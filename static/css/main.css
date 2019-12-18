@@ -34,6 +34,10 @@ h2 {
     color: darkcyan;
 }
 
+input:invalid {
+  border: 2px solid red;
+}
+
 #sign_up{
     margin-left: 60px;
 }

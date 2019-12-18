@@ -222,13 +222,14 @@ def login():
         if login_pass_from_db:
             if user_functions.verify_password(request.form['password'],login_pass_from_db['password']):
                 user_info = data_manager.get_user_info_by_login(request.form['login'])
-                print('Access granted')
+                flash('Access granted')
                 session['username'] = request.form['login']
                 session['user_image'] = user_info['user_image']
                 return redirect(request.referrer)
             else:
-                print('Access denied')
+                flash('Login or password are wrong')
                 return redirect('/')
+        flash('Login or password are wrong')
     return redirect('/')
 
 
