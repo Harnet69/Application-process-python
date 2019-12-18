@@ -219,15 +219,20 @@ def applicants_and_mentors(cursor):
 # check if file extension is allowed and change user filename for saving
 def change_user_image_name(request, application_code):
     file = request.files['user_image']
-    user_image_name = secure_filename(file.filename)
-    split_name = user_image_name.split('.')
-    extension = split_name[-1]
-    if user_image_name and extension.lower() in ALLOWED_EXTENSIONS:
-        new_name = application_code+'.'+extension.lower()
-        return new_name
-    print("Your file isn't image!")  # TODO show message to user if its image isn't image
-    flash(f"Format '{extension}' isn't allowed! Send only images!")
-    return False
+    if file:
+        user_image_name = secure_filename(file.filename)
+        split_name = user_image_name.split('.')
+        extension = split_name[-1]
+
+        if extension.lower() in ALLOWED_EXTENSIONS:
+            new_name = application_code+'.'+extension.lower()
+            return new_name
+        else:
+            print("Your file isn't image!")  # TODO show message to user if its image isn't image
+            flash(f"Format '{extension}' isn't allowed! Send only images!")
+            return False
+    else:
+        return False
 
 
 # saving users image
@@ -245,8 +250,8 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
     if password == confirm_password:
         hashed_password = user_functions.hash_password(password)
         user_image_name = change_user_image_name(request, login)
-        if not user_image_name:
-            return False
+        # if not user`_image_name:
+        #     return False`
         try:
             if user_image_name:
                 cursor.execute(
@@ -315,9 +320,10 @@ def edit_user_information(cursor, first_name, last_name, email, login, old_passw
                 except Exception:
                     print("Something wrong with add_new_user")
             else:
+                flash("New password and confirmed password don't match")
                 return False
         else:
-            print("Passwords NOT Mach!!!")
+            flash("Old password is wrong!!!")
             return False
     # if user don't change a password
     else:

@@ -203,10 +203,14 @@ def user_profile(login):
 def user_profile_edit(login):
     user_info = data_manager.get_user_info_by_login(login)
     if request.method == 'POST':
-        data_manager.edit_user_information(request.form['first_name'], request.form['last_name'], request.form['email'],
-                                       request.form['login'], request.form['old_password'],request.form['new_password'],
-                                       request.form['confirm_password'],request.form['id'], request, app)
-        return redirect(f'/user/{login}')
+        user_info_changed = data_manager.edit_user_information(request.form['first_name'], request.form['last_name'], request.form['email'],
+                                           request.form['login'], request.form['old_password'],
+                                           request.form['new_password'],
+                                           request.form['confirm_password'], request.form['id'], request, app)
+        if user_info_changed:
+            return redirect(f'/user/{login}')
+        else:
+            return render_template(MENU_PAGES['edit'][1], user_info=user_info, MENU_PAGES=MENU_PAGES) # TODO flash message
     else:
         if user_info:
             return render_template(MENU_PAGES['edit'][1], user_info=user_info, MENU_PAGES=MENU_PAGES)

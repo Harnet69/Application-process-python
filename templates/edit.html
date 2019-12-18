@@ -35,11 +35,18 @@
                    </p>
                    <p>
                        <label for="new_password">New password</label>
-                            <input type="password" id="new_password" name="new_password">
+                            <input type="password" pattern=".{5,}" id="new_password" name="new_password">
                    </p>
                    <p><label for="password">Confirm new password</label>
                         <input type="password" id="confirm_password" name="confirm_password">
                    </p>
+                   {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <label style="color: red">{{ message }}</label>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                    <p>
                        <label for="user_image">Profile photo</label>
                         <input type="file" id="user_image" name="user_image">
