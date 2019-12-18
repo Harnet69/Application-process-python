@@ -19,44 +19,48 @@
                 <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
             </form>
         {% endif %}
-        <table id="quizes_list_table">
-            <thead></thead>
-            <tbody>
-                <tr>
-                    <th>first name</th>
-                    <th>last name</th>
-                    <th>phone number</th>
-                    <th>email</th>
-                    <th>application code</th>
-                    <th>applicant image</th>
-                    {% if 'username' in session %}
-                        <th>update</th>
-                        <th>delete</th>
-                    {% endif %}
-                </tr>
-                    {% for applicant in applicants_info %}
-                        <tr>
-                            <td>{{ applicant.first_name }}</td>
-                            <td>{{ applicant.last_name }}</td>
-                            <td>{{ applicant.phone_number}}</td>
-                            <td>{{ applicant.email}}</td>
-                            <td>{{ applicant.application_code}}</td>
-                            <td>
-                                {% if applicant.user_image_name %}
-                                    <a href="/static/user_images/{{applicant.user_image_name}}">
-                                        <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
-                                    </a>
+        <div class="jumbotron text-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="quizes_list_table">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <th>first name</th>
+                                <th>last name</th>
+                                <th>phone number</th>
+                                <th>email</th>
+                                <th>application code</th>
+                                <th>applicant image</th>
+                                {% if 'username' in session %}
+                                    <th>update</th>
+                                    <th>delete</th>
                                 {% endif %}
-                            </td>
-                            {% if 'username' in session %}
-                                <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
-                                <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
+                            </tr>
+                                {% for applicant in applicants_info %}
+                                    <tr>
+                                        <td>{{ applicant.first_name }}</td>
+                                        <td>{{ applicant.last_name }}</td>
+                                        <td>{{ applicant.phone_number}}</td>
+                                        <td>{{ applicant.email}}</td>
+                                        <td>{{ applicant.application_code}}</td>
+                                        <td>
+                                            {% if applicant.user_image_name %}
+                                                <a href="/static/user_images/{{applicant.user_image_name}}">
+                                                    <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                        {% if 'username' in session %}
+                                            <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
+                                            <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
     {% include 'footer.html' %}
 {% endblock %}
