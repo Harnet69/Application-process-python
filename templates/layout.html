@@ -41,19 +41,14 @@
                                     {% else %}
                                         <div class="wrapper fadeInDown">
                                             <div id="formContent">
-                                                <!-- Tabs Titles -->
-                                                  <label style="color: red">For getting a full functionality you have to been logged</label>
-                                                <!-- Icon -->
-                                                <!-- Login Form -->
-                                                    <form action="/login" method="POST" style="height: 130px">
-                                                      <input style="width: 145px" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                                                      <input style="width: 145px" type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-                                                      <input type="submit" class="fadeIn fourth" value="Log In">
-                                                    </form>
-                                                <!-- Remind Passowrd -->
-                                                <div id="formFooter">
-                                                  <a style="text-decoration: none" class="underlineHover" href="{{ url_for('sign_up') }}">Not registered? Sign up, then :)</a>
-                                                </div>
+                                                <label style="color: red">For getting a full functionality you have to been logged</label>
+                                                <form action="/login" method="POST" style="height: 130px">
+                                                  <input style="width: 145px" type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+                                                  <input style="width: 145px" type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+                                                  <input type="submit" class="fadeIn fourth" value="Log In">
+                                                </form>
+                                            <div id="formFooter">
+                                              <a style="text-decoration: none" class="underlineHover" href="{{ url_for('sign_up') }}">Not registered? Sign up, then :)</a>
                                             </div>
                                         </div>
                                     {% endif %}

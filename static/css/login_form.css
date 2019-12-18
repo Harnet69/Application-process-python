@@ -33,35 +33,34 @@
 
 .wrapper {
   position: absolute;
-  margin-top: -45px;
+  margin-top: -25px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  min-height: 100%;
-  padding: 20px;
 }
 
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background: #fff;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
   max-width: 450px;
   position: relative;
-  padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
 }
 
 #formFooter {
+  margin-top: 55px;
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
   padding: 5px;
   text-align: center;
+  width: 100%;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
@@ -87,7 +86,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   background-color: #56baed;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 15px 30px;  /*width of submit button!!!*/
   text-align: center;
   text-decoration: none;
   display: inline-block;
