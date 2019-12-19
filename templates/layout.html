@@ -10,17 +10,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/menu.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/login_form.css')}}">
     </head>
     <body>
         <header>
             <div style="width: 100%" class="jumbotron text-center">
                     <div class="row" id="header">
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <a href="/"><img src="{{ url_for('static', filename='images/logo_sm.png') }}"  id="go_to_home" alt="Return to main page"></a>
                         </div>
-                        <div class="col-sm-8">
-                            <h1>{% block h1 %}{% endblock %}</h1>
+                        <div class="col-sm-9">
+                            <h2 style="margin-top: 5px">{% block h1 %}{% endblock %}</h2>
+                            <div class="menu">
+                                <ul>
+                                  <li><a href="#home">Home</a></li>
+                                  <li><a href="#news">News</a></li>
+                                  <li><a href="#contact">Contact</a></li>
+                                  <li style="float:right"><a class="active" href="#about">About</a></li>
+                                </ul>
+                            </div>
                         </div>
                         {% if not is_sign_up_page %}
                             <div class="col-sm-2" id="user_log">
@@ -29,9 +38,9 @@
                                         <div style="margin-top: -27px">
                                             <a href="/user/{{ session['username'] }}">{{ session['username'] }}</a>
                                             {% if session['user_image'] %}
-                                                <img style="height: 50px" src="/static/user_images/{{ session['user_image']}}">
+                                                <img style="height: 40px" src="/static/user_images/{{ session['user_image']}}">
                                             {% else %}
-                                                <img style="height: 50px" src="/static/images/no-image.jpg">
+                                                <img style="height: 40px" src="/static/images/no-image.jpg">
                                             {% endif %}
                                             <form style="height: 60px" action="/logout" method="POST">
                                                 <input type="text" name="username" value="{{ session['username'] }}" hidden>

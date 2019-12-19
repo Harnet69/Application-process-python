@@ -38,6 +38,15 @@ input:invalid {
   border: 2px solid red;
 }
 
+input:focus {
+  background-color: yellow;
+}
+
+p::first-letter {
+  color: blue;
+  font-size: x-large;
+}
+
 .update{
     text-align: left;
 }
