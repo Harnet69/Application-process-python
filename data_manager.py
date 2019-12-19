@@ -80,7 +80,7 @@ def get_applicant_info(cursor, application_code):
 @database_common.connection_handler
 def get_applicants_info(cursor):
     try:
-        cursor.execute("SELECT * FROM applicants ORDER BY id DESC")
+        cursor.execute("SELECT applicants.id, applicants.first_name, applicants.last_name, applicants.phone_number, applicants.email, applicants.application_code, applicants.mentor_id, applicants.user_image_name, users.last_name as hr FROM applicants INNER JOIN users on applicants.user_id = users.id ORDER BY applicants.id DESC")
         applicants_info = cursor.fetchall()
         return applicants_info
     except Exception:
