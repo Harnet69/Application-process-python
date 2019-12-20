@@ -49,9 +49,9 @@ def another_girls_fullname_number(cursor):
 
 @database_common.connection_handler
 def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, who_add_app, request, app):
-    who_add_app_id = get_user_info_by_login(who_add_app)
-    who_add_app = who_add_app_id['id']
-    user_image_name = change_user_image_name(request, application_code)
+    who_add_app_id = get_user_info_by_login(who_add_app)  # get user info from database
+    who_add_app = who_add_app_id['id']  # find user id for add it to applicant info
+    user_image_name = change_user_image_name(request, application_code) # change user image name, and check an file extension
     try:
         if user_image_name:
             cursor.execute(
@@ -69,6 +69,7 @@ def add_new_applicant(cursor, first_name, last_name, phone_number, email, applic
         print("Something wrong with add_new_applicant")
 
 
+# get applicant's info by applicant code
 @database_common.connection_handler
 def get_applicant_info(cursor, application_code):
     try:
@@ -79,6 +80,7 @@ def get_applicant_info(cursor, application_code):
         print("Something wrong with get applicant info by applicant code")
 
 
+# get applicant's info with user login
 @database_common.connection_handler
 def get_applicants_info(cursor):
     try:
@@ -92,6 +94,7 @@ def get_applicants_info(cursor):
         print("Something wrong with get_applicants_info")
 
 
+# get all applicant's info with user login by applicant id
 @database_common.connection_handler
 def get_applicant_info_by_id(cursor, id):
     try:
@@ -102,6 +105,7 @@ def get_applicant_info_by_id(cursor, id):
         print("Something wrong with get_applicant_info_by_id")
 
 
+# update applicant information
 @database_common.connection_handler
 def update_applicant_information(cursor, first_name, last_name, phone_number, email, application_code, id, request, app):
     try:
@@ -121,6 +125,7 @@ def update_applicant_information(cursor, first_name, last_name, phone_number, em
         print("Something wrong with update_applicant_information")
 
 
+# get applicant application code by applicant's id
 @database_common.connection_handler
 def get_applicant_app_code(cursor, app_id):
     try:
@@ -131,16 +136,18 @@ def get_applicant_app_code(cursor, app_id):
         print("Something wrong with get_applicant_app_code")\
 
 
-@database_common.connection_handler
-def get_applicant_application_code(cursor, app_id):
-    try:
-        cursor.execute("SELECT application_code FROM applicants WHERE id = %s", (app_id,))
-        file_to_delete = cursor.fetchone()
-        return file_to_delete
-    except Exception:
-        print("Something wrong with get_applicant_app_code")
+#  PROBABLY UNSED FUNCTION, DELETE AFFTER TESTING!
+# @database_common.connection_handler
+# def get_applicant_application_code(cursor, app_id):
+#     try:
+#         cursor.execute("SELECT application_code FROM applicants WHERE id = %s", (app_id,))
+#         file_to_delete = cursor.fetchone()
+#         return file_to_delete
+#     except Exception:
+#         print("Something wrong with get_applicant_app_code")
+#
 
-
+# delete applicant by id
 @database_common.connection_handler
 def delete_applicant(cursor, app_id):
     try:
@@ -150,6 +157,7 @@ def delete_applicant(cursor, app_id):
         print("Something wrong with delete_applicant")
 
 
+# delete applicant's image by app_code
 @database_common.connection_handler
 def delete_applicant_image(cursor, app_code):
     try:
@@ -163,6 +171,7 @@ def delete_applicant_image(cursor, app_code):
         print("Something wrong with delete_applicant_image")
 
 
+# show mentors and schools info
 @database_common.connection_handler
 def mentors_and_schools_info(cursor):
     cursor.execute(
@@ -173,6 +182,7 @@ def mentors_and_schools_info(cursor):
     return names
 
 
+# show schools info
 @database_common.connection_handler
 def all_school_info(cursor):
     cursor.execute(
@@ -183,6 +193,7 @@ def all_school_info(cursor):
     return names
 
 
+# show mentors by country
 @database_common.connection_handler
 def mentors_by_country(cursor):
     cursor.execute(
@@ -194,6 +205,7 @@ def mentors_by_country(cursor):
     return names
 
 
+# show school contacts
 @database_common.connection_handler
 def school_contacts(cursor):
     cursor.execute(
@@ -203,6 +215,7 @@ def school_contacts(cursor):
     return names
 
 
+# show applicants and their mentors
 @database_common.connection_handler
 def applicants(cursor):
     cursor.execute(
@@ -212,6 +225,7 @@ def applicants(cursor):
     return names\
 
 
+# show applicants and their mentors
 @database_common.connection_handler
 def applicants_and_mentors(cursor):
     cursor.execute(
