@@ -228,6 +228,7 @@ def login():
                 user_info = data_manager.get_user_info_by_login(request.form['login'])
                 session['username'] = request.form['login']
                 session['user_image'] = user_info['user_image']
+                session['super_user'] = user_info['super_user']
                 return redirect(request.referrer)
             else:
                 flash('Login or password are wrong')

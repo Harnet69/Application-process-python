@@ -32,10 +32,12 @@
                                 <th>email</th>
                                 <th>application code</th>
                                 <th>applicant image</th>
-                                <th>HR</th>
                                 {% if 'username' in session %}
                                     <th>update</th>
+                                {% endif %}
+                                {% if session['super_user'] == True %}
                                     <th>delete</th>
+                                    <th>HR</th>
                                 {% endif %}
                             </tr>
                                 {% for applicant in applicants_info %}
@@ -52,10 +54,12 @@
                                                 </a>
                                             {% endif %}
                                         </td>
-                                        <td>{{ applicant.hr}}</td>
                                         {% if 'username' in session %}
                                             <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
-                                            <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                                            {% if session['super_user'] == True %}
+                                                <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                                                <td>{{ applicant.hr}}</td>
+                                            {% endif %}
                                         {% endif %}
                                     </tr>
                                 {% endfor %}

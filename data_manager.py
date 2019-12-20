@@ -74,13 +74,16 @@ def get_applicant_info(cursor, application_code):
         applicant_info = cursor.fetchone()
         return applicant_info
     except Exception:
-        print("Something wrong")
+        print("Something wrong with get applicant info by applicant code")
 
 
 @database_common.connection_handler
 def get_applicants_info(cursor):
     try:
-        cursor.execute("SELECT applicants.id, applicants.first_name, applicants.last_name, applicants.phone_number, applicants.email, applicants.application_code, applicants.mentor_id, applicants.user_image_name, users.last_name as hr FROM applicants INNER JOIN users on applicants.user_id = users.id ORDER BY applicants.id DESC")
+        cursor.execute("SELECT applicants.id, applicants.first_name, applicants.last_name, applicants.phone_number, "
+                       "applicants.email, applicants.application_code, applicants.mentor_id, applicants.user_image_name, "
+                       "users.login as hr FROM applicants INNER JOIN users on applicants.user_id = users.id "
+                       "ORDER BY applicants.id DESC")
         applicants_info = cursor.fetchall()
         return applicants_info
     except Exception:
@@ -275,7 +278,9 @@ def add_new_user(cursor, first_name, last_name, email, login, password, confirm_
 @database_common.connection_handler
 def get_user_info_by_login(cursor, login):
     try:
-        cursor.execute("SELECT first_name, last_name, email, login, user_image, id FROM users WHERE login = %s", (login,))
+        cursor.execute("SELECT first_name, last_name, email, login, user_image, id, super_user "
+                       "FROM users "
+                       "WHERE login = %s", (login,))
         user_info_by_login = cursor.fetchone()
         return user_info_by_login
     except Exception:
