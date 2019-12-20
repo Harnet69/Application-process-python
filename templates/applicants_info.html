@@ -35,33 +35,35 @@
                                 {% if 'username' in session %}
                                     <th>update</th>
                                 {% endif %}
-                                {% if session['super_user'] == True %}
+                                {% if session['super_user'] %}
                                     <th>delete</th>
                                     <th>HR</th>
                                 {% endif %}
                             </tr>
                                 {% for applicant in applicants_info %}
-                                    <tr>
-                                        <td>{{ applicant.first_name }}</td>
-                                        <td>{{ applicant.last_name }}</td>
-                                        <td>{{ applicant.phone_number}}</td>
-                                        <td>{{ applicant.email}}</td>
-                                        <td>{{ applicant.application_code}}</td>
-                                        <td>
-                                            {% if applicant.user_image_name %}
-                                                <a href="/static/user_images/{{applicant.user_image_name}}">
-                                                    <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
-                                                </a>
+                                    {% if session['username'] == applicant.hr or session['super_user'] %}
+                                        <tr>
+                                            <td>{{ applicant.first_name }}</td>
+                                            <td>{{ applicant.last_name }}</td>
+                                            <td>{{ applicant.phone_number}}</td>
+                                            <td>{{ applicant.email}}</td>
+                                            <td>{{ applicant.application_code}}</td>
+                                            <td>
+                                                {% if applicant.user_image_name %}
+                                                    <a href="/static/user_images/{{applicant.user_image_name}}">
+                                                        <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            {% if 'username' in session %}
+                                                <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
+                                                {% if session['super_user'] %}
+                                                    <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                                                    <td>{{ applicant.hr}}</td>
+                                                {% endif %}
                                             {% endif %}
-                                        </td>
-                                        {% if 'username' in session %}
-                                            <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
-                                            {% if session['super_user'] == True %}
-                                                <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
-                                                <td>{{ applicant.hr}}</td>
-                                            {% endif %}
-                                        {% endif %}
-                                    </tr>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                         </tbody>
                      </table>
