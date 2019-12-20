@@ -79,7 +79,7 @@ def add_new_applicant():
     if 'username' in session:
         if request.method == "POST":
             data_manager.add_new_applicant(request.form['first_name'], request.form['last_name'], request.form['phone_number'],
-                                           request.form['email'], request.form['application_code'], request, app)
+                                           request.form['email'], request.form['application_code'], request.form['who_add_app'], request, app)
             application_code = request.form['application_code']
             return redirect(f'/applicant_info/{application_code}')
         else:

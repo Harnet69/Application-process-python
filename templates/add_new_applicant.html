@@ -24,6 +24,7 @@
             </p>
             <p><label for="application_code">Application code</label>
                 <input type="number" id="application_code" name="application_code" required>
+                <input type="text" name="who_add_app" value="{{ session['username'] }}" hidden>
             </p>
             <p><label for="user_image">User image (size limit 2Mb)</label>
                 <input type="file" id="user_image" name="user_image">

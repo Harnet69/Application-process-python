@@ -48,19 +48,21 @@ def another_girls_fullname_number(cursor):
 
 
 @database_common.connection_handler
-def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, request, app):
+def add_new_applicant(cursor, first_name, last_name, phone_number, email, application_code, who_add_app, request, app):
+    who_add_app_id = get_user_info_by_login(who_add_app)
+    who_add_app = who_add_app_id['id']
     user_image_name = change_user_image_name(request, application_code)
     try:
         if user_image_name:
             cursor.execute(
-                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_image_name) VALUES(%s, %s, %s, %s, %s, %s)",
-                (first_name, last_name, phone_number, email, application_code, user_image_name))
+                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_image_name, user_id) VALUES(%s, %s, %s, %s, %s, %s, %s)",
+                (first_name, last_name, phone_number, email, application_code, user_image_name, who_add_app))
             upload_file(request, app, user_image_name)
             return True
         else:
             cursor.execute(
-                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code) VALUES(%s, %s, %s, %s, %s)",
-                (first_name, last_name, phone_number, email, application_code))
+                "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_id) VALUES(%s, %s, %s, %s, %s, %s)",
+                (first_name, last_name, phone_number, email, application_code, who_add_app))
 
             return True
     except Exception:
