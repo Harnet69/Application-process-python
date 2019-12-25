@@ -14,5 +14,22 @@ function create_list(){
     return list_ul;
 }
 
-aimP = document.getElementsByTagName('p')[1];
+function create_button() {
+    const my_btn = document.createElement('button');
+    let click = my_btn.addEventListener('click', show_hide);
+    button_text = document.createTextNode('Hide/Show');
+    my_btn.appendChild(button_text);
+    return my_btn;
+}
+
+function show_hide(){
+    first_p = document.getElementById('my')
+    first_p.classList.toggle('hide');
+    // this.classList.toggle('hide');
+}
+
+aimP = document.getElementsByTagName('p')[0];
 aimP.appendChild(create_list());
+
+last_p = document.getElementsByTagName('p')[1];
+last_p.appendChild(create_button());

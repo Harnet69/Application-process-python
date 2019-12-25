@@ -8,8 +8,18 @@
 {% block h1 %}JavaScript{% endblock %}
 
 {% block content %}
+    <style>
+        .selected{
+            background: #4CAF50;
+            color: white;
+        }
+        .hide{
+            display: none;
+            color: #4CAF50;
+        }
+    </style>
     {% if  session['super_user'] and 'username' in session %}
-        <p>Hello {{session['super_user']}}</p>
+        <p id="my">Hello {{session['username']}}</p>
         <p>Try JavaScript</p>
     {% else %}
         Hello stranger!
