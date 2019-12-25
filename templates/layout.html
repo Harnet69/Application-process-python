@@ -6,12 +6,13 @@
         <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.png')}}" type="image/x-icon">
         <link rel="icon" href="{{url_for('static', filename='images/favicon.png')}}" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/menu.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/login_form.css')}}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% block script %}{% endblock %}
     </head>
     <body>
         <header>
@@ -26,6 +27,7 @@
                                 <ul>
                                   <li><a href="/">Home</a></li>
                                   <li><a href="/applicants_info">Applicants info</a></li>
+                                  <li><a href="/javaScript">JavaScript</a></li>
                                   <li style="float:right"><a class="active" href="#about">About</a></li>
                                 </ul>
                             </div>

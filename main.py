@@ -28,7 +28,8 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'applicants-and-mentors': ('applicants-and-mentors', 'applicants-and-mentors.html', 'Applicants and mentors'),
               'sign_up': ('sign-up', 'sign_up.html', 'Sign up'),
               'user': ('user', 'user.html', 'User'),
-              'edit': ('edit', 'edit.html', 'Edit')
+              'edit': ('edit', 'edit.html', 'Edit'),
+              'javaScript': ('javaScript', 'javaScript.html', 'javaScript')
               }
 
 
@@ -244,6 +245,12 @@ def logout():
         # remove the username from the session if it's there
         session.pop('username', None)
     return redirect('/')
+
+
+# 19. JavaScript
+@app.route('/javaScript')
+def javaScript():
+    return render_template(MENU_PAGES['javaScript'][1])
 
 
 if __name__ == '__main__':
