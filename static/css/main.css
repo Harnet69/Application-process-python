@@ -175,7 +175,10 @@ footer {
 }
 
 #quiz_list{
-    margin: 0 auto;
+    margin: 0px auto;
+    margin-bottom: 25px;
+    padding: 0px 10px;
+
 }
 
 #quiz_list{
