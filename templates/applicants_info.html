@@ -3,67 +3,71 @@
 {% block h1 %}Applicants info{% endblock %}
 {% block content %}
     <div id="quiz_list">
-        <p id="js_try">
-            Jemima Foreman, an applicant called us, that her phone number changed to: 003670/223-7459 Write an UPDATE query,
-            that changes this data in the database for this applicant. Also, write a SELECT query, that checks the phone_number
-            column of this applicant. Use both of her name parts in the conditions!
-            Arsenio, an applicant called us, that he and his friend applied to Codecool. They both want to cancel the process, because
-            they got an investor for the site they run: mauriseu.net
-        </p>
-        <p>
-            Write DELETE query to remove all the applicants, who applied with emails for this domain (e-mail address has this domain
-            after the @ sign).
-        </p>
-        {% if 'username' in session %}
-            <form>
-                <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
-            </form>
-        {% endif %}
-        <table id="quizes_list_table">
-            <thead></thead>
-            <tbody>
-                <tr>
-                    <th>first name</th>
-                    <th>last name</th>
-                    <th>phone number</th>
-                    <th>email</th>
-                    <th>application code</th>
-                    <th>applicant image</th>
-                    {% if 'username' in session %}
-                        <th>update</th>
-                    {% endif %}
-                    {% if session['super_user'] %}
-                        <th>delete</th>
-                        <th>HR</th>
-                    {% endif %}
-                </tr>
-                    {% for applicant in applicants_info %}
-                        {% if session['username'] == applicant.hr or session['super_user'] %}
-                            <tr>
-                                <td>{{ applicant.first_name }}</td>
-                                <td>{{ applicant.last_name }}</td>
-                                <td>{{ applicant.phone_number}}</td>
-                                <td>{{ applicant.email}}</td>
-                                <td>{{ applicant.application_code}}</td>
-                                <td>
-                                    {% if applicant.user_image_name %}
-                                        <a href="/static/user_images/{{applicant.user_image_name}}">
-                                            <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
-                                        </a>
-                                    {% endif %}
-                                </td>
-                                {% if 'username' in session %}
-                                    <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
-                                    {% if session['super_user'] %}
-                                        <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
-                                        <td><a href="{{ MENU_PAGES['user'][0]}}/{{ applicant.hr }}">{{ applicant.hr}}</a></td>
-                                    {% endif %}
-                                {% endif %}
-                            </tr>
+        <div>
+            <p id="js_try">
+                Jemima Foreman, an applicant called us, that her phone number changed to: 003670/223-7459 Write an UPDATE query,
+                that changes this data in the database for this applicant. Also, write a SELECT query, that checks the phone_number
+                column of this applicant. Use both of her name parts in the conditions!
+                Arsenio, an applicant called us, that he and his friend applied to Codecool. They both want to cancel the process, because
+                they got an investor for the site they run: mauriseu.net
+            </p>
+            <p>
+                Write DELETE query to remove all the applicants, who applied with emails for this domain (e-mail address has this domain
+                after the @ sign).
+            </p>
+        </div>
+        <div style="padding-bottom: 25px">
+            {% if 'username' in session %}
+                <form>
+                    <button type="submit" class="btn btn-primary" formaction={{ MENU_PAGES['add_new_applicant'][0] }} formmethod="get">Add new</button>
+                </form>
+            {% endif %}
+            <table id="quizes_list_table">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>phone number</th>
+                        <th>email</th>
+                        <th>application code</th>
+                        <th>applicant image</th>
+                        {% if 'username' in session %}
+                            <th>update</th>
                         {% endif %}
-                    {% endfor %}
-            </tbody>
-        </table>
+                        {% if session['super_user'] %}
+                            <th>delete</th>
+                            <th>HR</th>
+                        {% endif %}
+                    </tr>
+                        {% for applicant in applicants_info %}
+                            {% if session['username'] == applicant.hr or session['super_user'] %}
+                                <tr>
+                                    <td>{{ applicant.first_name }}</td>
+                                    <td>{{ applicant.last_name }}</td>
+                                    <td>{{ applicant.phone_number}}</td>
+                                    <td>{{ applicant.email}}</td>
+                                    <td>{{ applicant.application_code}}</td>
+                                    <td>
+                                        {% if applicant.user_image_name %}
+                                            <a href="/static/user_images/{{applicant.user_image_name}}">
+                                                <img style="height: 35px" src="/static/user_images/{{applicant.user_image_name}}">
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    {% if 'username' in session %}
+                                        <td><a href="{{ MENU_PAGES['applicant_update'][0]}}/{{ applicant.id }}"><img style="height: 35px" src="{{ url_for('static', filename="images/update.png") }}"></a></td>
+                                        {% if session['super_user'] %}
+                                            <td><a href="{{ MENU_PAGES['applicant_delete'][0]}}/{{ applicant.id }}"><img src="{{ url_for('static', filename="images/delete.png") }}"></a></td>
+                                            <td><a href="{{ MENU_PAGES['user'][0]}}/{{ applicant.hr }}">{{ applicant.hr}}</a></td>
+                                        {% endif %}
+                                    {% endif %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     {% include 'footer.html' %}
 {% endblock %}
