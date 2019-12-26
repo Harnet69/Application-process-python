@@ -4,18 +4,18 @@
 {% block content %}
     <div class="jumbotron text-center">
         <div style="margin-top: -100px" class="row">
-            <div class="col-sm-4">
+            <div class="col">
                 {% if applicant_info_by_id.user_image_name %}
                     <a href="/static/user_images/{{applicant_info_by_id.user_image_name}}">
-                        <img style="width: 350px" src="/static/user_images/{{applicant_info_by_id.user_image_name}}">
+                        <img style="width: 300px" src="/static/user_images/{{applicant_info_by_id.user_image_name}}">
                     </a>
                     {% else %}
                     <a href="/static/user_images/{{applicant_info_by_id.user_image_name}}">
-                        <img style="width: 350px" src="/static/images/no-image.jpg">
+                        <img style="width: 300px" src="/static/images/no-image.jpg">
                     </a>
                 {% endif %}
             </div>
-            <div class="col-sm-8">
+            <div class="col">
                <form class="update" action="/applicant_update" method="POST" enctype="multipart/form-data">
                    <p>
                        <label for="first_name">First name</label>
