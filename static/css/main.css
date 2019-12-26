@@ -183,7 +183,7 @@ footer {
 
 #quiz_list{
     align-content: center;
-    width: 1200px;
+    width: 100%;
 }
 
 #quiz_list table {
