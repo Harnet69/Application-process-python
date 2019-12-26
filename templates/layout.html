@@ -36,12 +36,12 @@
                             <div class="col-sm-2" id="user_log">
                                 {% block user %}
                                     {% if 'username' in session %}
-                                        <div style="margin-top: -27px">
-                                            <a href="/user/{{ session['username'] }}">{{ session['username'] }}</a>
+                                        <div id="header_user_info">
+                                            <a style="color: #5fbae9" href="/user/{{ session['username'] }}"><b>{{ session['username'] }}</b></a>
                                             {% if session['user_image'] %}
-                                                <img style="height: 40px" src="/static/user_images/{{ session['user_image']}}">
+                                                <img style="height: 35px" src="/static/user_images/{{ session['user_image']}}">
                                             {% else %}
-                                                <img style="height: 40px" src="/static/images/no-image.jpg">
+                                                <img style="height: 35px" src="/static/images/no-image.jpg">
                                             {% endif %}
                                             <form style="height: 60px" action="/logout" method="POST">
                                                 <input type="text" name="username" value="{{ session['username'] }}" hidden>

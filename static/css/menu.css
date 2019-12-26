@@ -2,20 +2,24 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  margin-top: 10px;
   overflow: hidden;
-  background-color: #5fbae9;
   border-radius: 5px;
 }
 
 .menu li {
+  background-color: #5fbae9;
   float: left;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  margin-left: 2px;
 }
 
 .menu li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 10px 16px;
   text-decoration: none;
 }
 

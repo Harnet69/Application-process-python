@@ -1,3 +1,11 @@
+#header_user_info{
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  /*margin-top: -27px;*/
+  /*margin-bottom: 2px;*/
+  margin: -27px 0px 2px;
+}
+
 .wrapper {
   position: absolute;
   margin-top: -25px;

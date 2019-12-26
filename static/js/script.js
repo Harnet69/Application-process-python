@@ -16,7 +16,7 @@ function create_list(){
 
 function create_button() {
     const my_btn = document.createElement('button');
-    let click = my_btn.addEventListener('click', show_hide);
+    my_btn.addEventListener('click', show_hide);
     button_text = document.createTextNode('Hide/Show');
     my_btn.appendChild(button_text);
     return my_btn;
@@ -26,6 +26,12 @@ function show_hide(){
     first_p = document.getElementById('my')
     first_p.classList.toggle('hide');
     // this.classList.toggle('hide');
+}
+
+function inputKeyUp(e) {
+    if (e.key === 'Enter') {
+        console.log('Enter has been pressed')
+    }
 }
 
 aimP = document.getElementsByTagName('p')[0];
