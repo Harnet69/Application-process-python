@@ -23,7 +23,8 @@ header{
 }
 
 body {
-    background-image: url("/static/images/background.jpg");;
+    background-image: url("/static/images/background.jpg");
+    font-family: 'Girassol', cursive;
 }
 
 h1 {
