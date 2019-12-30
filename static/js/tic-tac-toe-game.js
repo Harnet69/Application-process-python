@@ -202,7 +202,7 @@ function winAnotherDiag() {
 }
 
 // color winning cells
-function colorWinCells(cellsCoordinates=[[0,0],[1,1],[2,2]]) {
+function colorWinCells(cellsCoordinates) {
     let my_cells = document.getElementsByClassName('game-cell');
     for(let cell of my_cells){
         let cellRow = cell.getAttribute('data-coordinate-x');
@@ -215,5 +215,19 @@ function colorWinCells(cellsCoordinates=[[0,0],[1,1],[2,2]]) {
     }
 }
 
+// create game board
+function addElem() {
+    let lastDiv = document.getElementById('game-board');
+    let my_btn = document.createElement('button');
+    let button_text = document.createTextNode('Apple, CLICK!');
+    my_btn.appendChild(button_text);
+    lastDiv.appendChild(my_btn);
+    my_btn.addEventListener('click', function () {
+        alert('Click!');
+    });
+}
+
+
 gameLoop();
+addElem();
 console.table(gameStageArch);
