@@ -216,22 +216,18 @@ function colorWinCells(cellsCoordinates) {
 }
 
 // create game board
-function addElem(my_btn) {
+function addElem() {
     let lastDiv = document.getElementById('game-board');
+    let my_btn = document.createElement('button');
+    let button_text = document.createTextNode('Apple, CLICK!');
+    my_btn.appendChild(button_text);
     lastDiv.appendChild(my_btn);
     my_btn.addEventListener('click', function () {
         alert('Click!');
     });
 }
 
-function create_button() {
-    const my_btn = document.createElement('button');
-    button_text = document.createTextNode('Apple, CLICK!');
-    my_btn.appendChild(button_text);
-    return my_btn;
-}
-
-
+alert('JS is working!');
 gameLoop();
-addElem(create_button());
+addElem();
 console.table(gameStageArch);
