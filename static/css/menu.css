@@ -34,8 +34,4 @@
 /*submenu style*/
 .show{
   display: block;
-  position: absolute;
-}
-.show a{
-  display: block;
 }
