@@ -33,5 +33,6 @@
 }
 /*submenu style*/
 .show{
+  position: absolute;
   display: block;
 }
