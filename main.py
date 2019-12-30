@@ -29,7 +29,9 @@ MENU_PAGES = {'mentors_names_lastnames': ('mentors_names_lastnames.html', 'Mento
               'sign_up': ('sign-up', 'sign_up.html', 'Sign up'),
               'user': ('user', 'user.html', 'User'),
               'edit': ('edit', 'edit.html', 'Edit'),
-              'javaScript': ('javaScript', 'javaScript.html', 'javaScript')
+              'javaScript': ('javaScript', 'javaScript.html', 'javaScript'),
+              'tic-tac-toe': ('tic-tac-toe', 'tic-tac-toe.html', 'TicTacToe'),
+              'tic-tac-toe-game': ('tic-tac-toe-game', 'tic-tac-toe-game.html', 'TicTacToe Game')
               }
 
 
@@ -251,6 +253,19 @@ def logout():
 @app.route('/javaScript')
 def javaScript():
     return render_template(MENU_PAGES['javaScript'][1])
+
+# 20. Tic Tac Toe
+@app.route('/tic-tac-toe')
+def tic_tac_toe():
+    return render_template(MENU_PAGES['tic-tac-toe'][1])
+
+# 20. Tic Tac Toe game
+@app.route('/tic-tac-toe-game')
+def tic_tac_toe_game():
+    row_num = int(request.args.get('row-num', 3))
+    col_num = int(request.args.get('col-num', 3))
+    win_size = int(request.args.get('win-size', 3))
+    return render_template(MENU_PAGES['tic-tac-toe-game'][1], row_num=row_num, col_num=col_num, win_size=win_size)
 
 
 if __name__ == '__main__':

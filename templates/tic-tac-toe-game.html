@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Tic Tac Toe game{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='js/tic-tac-toe-game.js')}}" defer></script>
+{% endblock %}
+
+{% block h1 %}Tic Tac Toe game{% endblock %}
+
+{% block content %}
+    <nav>
+        <button id="retry-button" class="btn btn-success" onclick="window.location.reload(false);">Try again?</button>
+        <a href="/tic-tac-toe" class="btn btn-outline-dark">Reset settings</a>
+    </nav>
+    <div id="game-board" class="mb-3" data-row-num="{{ row_num }}" data-col-num="{{ col_num }}" data-win-size="{{ win_size }}">
+        {% for row in range(row_num) %}
+            <div>
+                {% for col in range(col_num) %}
+                    <div class="game-cell"
+                         data-coordinate-x="{{ col }}"
+                         data-coordinate-y="{{ row }}">
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

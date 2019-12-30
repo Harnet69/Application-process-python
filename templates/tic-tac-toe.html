@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Tic Tac Toe game{% endblock %}
+{% block script %}
+    <script src="{{url_for('static', filename='js/tic-tac-toe-game.js')}}" defer></script>
+{% endblock %}
+
+{% block h1 %}Tic Tac Toe game{% endblock %}
+
+{% block content %}
+ <form action="/tic-tac-toe-game" method="GET">
+        <label for="selection">Set the field size and how many consecutive ones the player must collect to win!</label>
+        <div class="row">
+            <div class="col-4 col-md-2 col-lg-1">
+                <label>Row num</label>
+            </div>
+            <div class="col-4 col-md-2 col-lg-1">
+                <label>Col num</label>
+            </div>
+            <div class="col-4 col-md-2 col-lg-1">
+                <label>Win size</label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4 col-md-2 col-lg-1">
+                <select class="form-control" name="row-num">
+                    {% for num in range(3, 21) %}
+                        <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4 col-md-2 col-lg-1">
+                <select class="form-control" name="col-num">
+                    {% for num in range(3, 21) %}
+                        <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4 col-md-2 col-lg-1">
+                <select class="form-control" name="win-size">
+                    {% for num in range(3, 7) %}
+                        <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button class="btn-outline-dark" type="submit">Let's go!</button>
+    </form>
+{% endblock %}
