@@ -27,3 +27,15 @@
 .menu li a:hover {
   background-color: #39ace7;
 }
+
+.subMenu{
+  display: none;
+}
+/*submenu style*/
+.show{
+  display: block;
+  position: absolute;
+}
+.show a{
+  display: block;
+}
