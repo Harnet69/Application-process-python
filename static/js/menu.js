@@ -1,7 +1,7 @@
 function hideShowSub() {
     let ulToHide = document.getElementsByClassName('subMenu');
     for(let ul of ulToHide){
-        this.classList.toggle('show');
+        ul.classList.toggle('show');
     }
 }
 
