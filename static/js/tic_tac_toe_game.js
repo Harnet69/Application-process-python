@@ -78,11 +78,13 @@ function iterPlayers(cell){
 // display a player who should to turn
 function displayPlayer(playerNum) {
     let playerField = document.getElementById('player');
+    let pl1 = document.createTextNode("Player 1");
+    let pl2 = document.createTextNode("Player 2");
     if(playerNum === 1) {
-        playerField.textContent = "Player 2";
+        playerField.appendChild(pl2);
     }
     else{
-        playerField.textContent = "Player 1";
+        playerField.appendChild(pl1);
     }
 }
 
