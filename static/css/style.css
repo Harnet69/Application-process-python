@@ -5,6 +5,12 @@ body {
     color: black;
 }
 
+#game-content{
+    text-align: center;
+    margin: -50px auto 0 auto;
+    padding-bottom: 10px;
+}
+
 .game-cell {
     cursor: pointer;
     border: 1px solid black;
