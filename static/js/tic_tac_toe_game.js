@@ -75,16 +75,14 @@ function iterPlayers(cell){
     return pl;
 }
 
-// display a player who should to turn
+// display a player who should to turn on
 function displayPlayer(playerNum) {
     let playerField = document.getElementById('player');
-    let pl1 = document.createTextNode("Player 1");
-    let pl2 = document.createTextNode("Player 2");
     if(playerNum === 1) {
-        playerField.appendChild(pl2);
+        playerField.textContent = "Player 2";
     }
     else{
-        playerField.appendChild(pl1);
+        playerField.textContent = "Player 1";
     }
 }
 
