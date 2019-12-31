@@ -14,6 +14,13 @@
 
 {% block content %}
     <div id="game-content">
+        <h2 id="player">
+            {% if two_single_play == 1 %}
+                Game against computer
+            {% else %}
+                Game player against player
+            {% endif %}
+        </h2>
         <nav>
             <button id="retry-button" class="btn btn-success" onclick="window.location.reload(false);">Try again?</button>
             <a href="/tic-tac-toe" class="btn btn-outline-dark">Reset settings</a>

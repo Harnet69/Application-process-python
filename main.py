@@ -265,7 +265,8 @@ def tic_tac_toe_game():
     row_num = int(request.args.get('row-num', 3))
     col_num = int(request.args.get('col-num', 3))
     win_size = int(request.args.get('win-size', 3))
-    return render_template(MENU_PAGES['tic-tac-toe-game'][1], row_num=row_num, col_num=col_num, win_size=win_size)
+    two_single_play = int(request.args.get('two-single-play'))
+    return render_template(MENU_PAGES['tic-tac-toe-game'][1], row_num=row_num, col_num=col_num, win_size=win_size, two_single_play=two_single_play)
 
 
 if __name__ == '__main__':

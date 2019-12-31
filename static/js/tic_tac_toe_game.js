@@ -3,6 +3,7 @@ var gameStageArch = [];
 const player1 = 'O';
 const player2 = 'X';
 let pl = 2;
+var lastClickedCell;
 
 // get board size
 function getBoardSize(){
@@ -13,8 +14,8 @@ function getBoardSize(){
     return [+rowsNum, +colsNum]
 }
 
-// build game stage archive according to border size
-function createGameStageArch(){
+// build game stage array according to border size
+function createGameStageArray(){
     let borderSize = getBoardSize();
     let rows = borderSize[0];
     let cols = borderSize[1];
@@ -28,7 +29,7 @@ function createGameStageArch(){
 
 // main game loop
 function gameLoop(){
-createGameStageArch();
+createGameStageArray();
 let my_cells = document.getElementsByClassName('game-cell');
     for(let cell of my_cells){
         cell.addEventListener('click', function () {
@@ -64,11 +65,25 @@ function iterPlayers(cell){
         pl = 2;
     }
     else{
+        // var lastClickedCell = cell;
+        // alert(lastClickedCell);
         cell.textContent = player2;
         cell.classList.add('selected');
         pl = 1;
     }
+    displayPlayer(pl);
     return pl;
+}
+
+// display a player who should to turn
+function displayPlayer(playerNum) {
+    let playerField = document.getElementById('player');
+    if(playerNum === 1) {
+        playerField.textContent = "Player 2";
+    }
+    else{
+        playerField.textContent = "Player 1";
+    }
 }
 
 // get the clicked cell coordinates
@@ -214,6 +229,8 @@ function colorWinCells(cellsCoordinates) {
         }
     }
 }
+
+//
 
 gameLoop();
 // console.table(gameStageArch);
