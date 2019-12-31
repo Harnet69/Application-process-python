@@ -2,8 +2,14 @@
 var gameStageArch = [];
 const player1 = 'O';
 const player2 = 'X';
-let pl = 2;
-var lastClickedCell;
+var pl;
+if(isGameAgainstComp()){
+    pl = 0;
+}
+else{
+    pl = 2;
+}
+let lastClickedCell;
 
 // get board size
 function getBoardSize(){
@@ -22,7 +28,7 @@ function createGameStageArray(){
     for(let row=0;row<rows;row++){
         gameStageArch[row] = [];
         for(let col=0;col<cols;col++){
-            gameStageArch[row][col] = 0;
+            gameStageArch[row][col] = false;
         }
     }
 }
@@ -64,12 +70,22 @@ function iterPlayers(cell){
         cell.classList.add('selected');
         pl = 2;
     }
-    else{
+    else if(pl === 2){
         // var lastClickedCell = cell;
         // alert(lastClickedCell);
         cell.textContent = player2;
         cell.classList.add('selected');
         pl = 1;
+    }
+    else if(pl === 3){
+        cell.textContent = player1;
+        cell.classList.add('selected');
+        pl = 0;
+    }
+    else{ //Comp turn
+        cell.textContent = player2;
+        cell.classList.add('selected');
+        pl = 3;
     }
     displayPlayer(pl);
     return pl;
@@ -81,8 +97,14 @@ function displayPlayer(playerNum) {
     if(playerNum === 1) {
         playerField.textContent = "Player 2";
     }
-    else{
+    else if(playerNum === 2) {
         playerField.textContent = "Player 1";
+    }
+    else if(playerNum === 3) {
+        playerField.textContent = "Player 1";
+    }
+    else{
+        playerField.textContent = "Computer";
     }
 }
 
@@ -153,10 +175,16 @@ function winHoriz() {
                 && gameStageArch[row][col+1] === gameStageArch[row][col+2]) {
                 let winComb = [[row,col],[row,col+1],[row,col+2]];
                 if(gameStageArch[row][col] === 1) {
-                    return [true, 'Player 1 won horizontally', winComb];
+                    return [true, 'Player 1 won horizontally --', winComb];
                 }
                 if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won horizontally', winComb];
+                    return[true, 'Player 2 won horizontally --', winComb];
+                }
+                if(gameStageArch[row][col] === 3){
+                    return[true, 'You won horizontally --', winComb];
+                }
+                if(gameStageArch[row][col] === 0){
+                    return[true, 'Computer won horizontally --', winComb];
                 }
             }
         }
@@ -171,10 +199,16 @@ function winVert() {
                 && gameStageArch[row+1][col] === gameStageArch[row+2][col]) {
                 let winComb = [[row,col],[row+1,col],[row+2,col]];
                 if(gameStageArch[row][col] === 1) {
-                    return [true, 'Player 1 won vertically', winComb];
+                    return [true, 'Player 1 won vertically |', winComb];
                 }
                 if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won  vertically', winComb];
+                    return[true, 'Player 2 won  vertically |', winComb];
+                }
+                if(gameStageArch[row][col] === 3){
+                    return[true, 'You won vertically |', winComb];
+                }
+                if(gameStageArch[row][col] === 0){
+                    return[true, 'Computer won vertically |', winComb];
                 }
             }
         }
@@ -193,6 +227,12 @@ function winDiag() {
                 if(gameStageArch[row][col] === 2){
                     return[true, 'Player 2 won diagonally \\', winComb];
                 }
+                if(gameStageArch[row][col] === 3){
+                    return[true, 'You won diagonally \\', winComb];
+                }
+                if(gameStageArch[row][col] === 0){
+                    return[true, 'Computer won diagonally \\', winComb];
+                }
             }
         }
     }
@@ -210,6 +250,12 @@ function winAnotherDiag() {
                 }
                 if(gameStageArch[row][col] === 2){
                     return[true, 'Player 2 won diagonally /', winComb];
+                }
+                if(gameStageArch[row][col] === 3){
+                    return[true, 'You won diagonally /', winComb];
+                }
+                if(gameStageArch[row][col] === 0){
+                    return[true, 'Computer won diagonally /', winComb];
                 }
             }
         }
@@ -230,7 +276,15 @@ function colorWinCells(cellsCoordinates) {
     }
 }
 
-//
+// if it's game against computer
+function isGameAgainstComp() {
+    if (document.getElementById('computer')){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 gameLoop();
 // console.table(gameStageArch);
