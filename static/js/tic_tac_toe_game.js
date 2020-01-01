@@ -4,7 +4,7 @@ const player1 = 'O';
 const player2 = 'X';
 var pl;
 if(isGameAgainstComp()){
-    pl = 0;
+    pl = 4;
 }
 else{
     pl = 2;
@@ -43,6 +43,7 @@ let my_cells = document.getElementsByClassName('game-cell');
                 let player = iterPlayers(cell);
                 let cell_coord = getCellCoord(cell);
                 addTurnToArch(player, cell_coord);
+                        getWinComb(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (win_condition()[0]){
                    alert(win_condition()[1]);
                    colorWinCells(win_condition()[2]);
@@ -80,10 +81,9 @@ function iterPlayers(cell){
     else if(pl === 3){
         cell.textContent = player1;
         cell.classList.add('selected');
-        pl = 0;
+        pl = 4;
     }
-    else{ //Comp turn
-        compTurn();
+    else if(pl === 4){ //Comp turn
         cell.textContent = player2;
         cell.classList.add('selected');
         pl = 3;
@@ -127,7 +127,7 @@ function addTurnToArch(player, cell_coord){
     let cellRow  = cell_coord[1];
     gameStageArch[cellRow][cellCol] = player;
     // console.clear();
-    // console.table(gameStageArch);
+    console.table(gameStageArch);
 }
 
 // win condition
@@ -152,6 +152,27 @@ function win_condition(){
         return [draw(), "It's a draw"];
     }
 }
+// win condition for AI
+function winConditionAI(){
+    let horiz = winHoriz();
+    let vert = winVert();
+    let diag = winDiag();
+    let anotherDiag = winAnotherDiag();
+    if(horiz) {
+        return true;
+    }
+    if(vert) {
+        return true;
+    }
+    if(diag) {
+        return true;
+    }
+    if(anotherDiag) {
+        return true;
+    }
+    return false;
+}
+
 
 // dead heat(draw)
 function draw() {
@@ -184,7 +205,7 @@ function winHoriz() {
                 if(gameStageArch[row][col] === 3){
                     return[true, 'You won horizontally --', winComb];
                 }
-                if(gameStageArch[row][col] === 0){
+                if(gameStageArch[row][col] === 4){
                     return[true, 'Computer won horizontally --', winComb];
                 }
             }
@@ -208,7 +229,7 @@ function winVert() {
                 if(gameStageArch[row][col] === 3){
                     return[true, 'You won vertically |', winComb];
                 }
-                if(gameStageArch[row][col] === 0){
+                if(gameStageArch[row][col] === 4){
                     return[true, 'Computer won vertically |', winComb];
                 }
             }
@@ -231,7 +252,7 @@ function winDiag() {
                 if(gameStageArch[row][col] === 3){
                     return[true, 'You won diagonally \\', winComb];
                 }
-                if(gameStageArch[row][col] === 0){
+                if(gameStageArch[row][col] === 4){
                     return[true, 'Computer won diagonally \\', winComb];
                 }
             }
@@ -255,7 +276,7 @@ function winAnotherDiag() {
                 if(gameStageArch[row][col] === 3){
                     return[true, 'You won diagonally /', winComb];
                 }
-                if(gameStageArch[row][col] === 0){
+                if(gameStageArch[row][col] === 4){
                     return[true, 'Computer won diagonally /', winComb];
                 }
             }
@@ -304,25 +325,24 @@ function compTurn() {
 }
 
 // get not occupied cells
-function getFreeCells() {
+function getWinComb() {
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
-            let cell = gameStageArch[x][y];
-            let cell_coord = [x,y];
-            // console.log(cell_coord);
-            if(cell === false){
-                // console.log([x,y]);
-                addTurnToArch(3, cell_coord);
-                // if(win_condition()){
-                //     console.log('Win combination: ',cell_coord);
-                // }
-                // else{
-                //     addTurnToArch(false, cell_coord);
-                //     break;
-                // }
+            let cellValue = gameStageArch[x][y];
+            // console.log(cellCoord,' : ',cellValue);
+            if(!cellValue){
+                gameStageArch[x][y] = 3;
+                if(winConditionAI()){
+                    console.log("Win comb",[y,x]);
+                    gameStageArch[x][y] = false;
+                }
+                else{
+                    gameStageArch[x][y] = false;
+                }
             }
+
         }
     }
 }
 gameLoop();
-console.table(gameStageArch);
+// console.table(gameStageArch);
