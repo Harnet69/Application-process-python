@@ -44,7 +44,7 @@ let my_cells = document.getElementsByClassName('game-cell');
                 let player = iterPlayers(cell);
                 let cell_coord = getCellCoord(cell);
                 addTurnToArch(player, cell_coord);
-                getWinComb(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                getWinComb();
                 if (win_condition()[0]){
                    alert(win_condition()[1]);
                    colorWinCells(win_condition()[2]);
@@ -103,10 +103,10 @@ function displayPlayer(playerNum) {
         playerField.textContent = "Player 1";
     }
     else if(playerNum === 3) {
-        playerField.textContent = "Player 1";
-    }
-    else{
         playerField.textContent = "Computer";
+    }
+    else if(playerNum === 4){
+        playerField.textContent = "Player 1";
     }
 }
 
@@ -128,7 +128,7 @@ function addTurnToArch(player, cell_coord){
     let cellRow  = cell_coord[1];
     gameStageArch[cellRow][cellCol] = player;
     // console.clear();
-    console.table(gameStageArch);
+    // console.table(gameStageArch);
 }
 
 // win condition
@@ -314,12 +314,13 @@ function getWinComb() {
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
             let cellValue = gameStageArch[x][y];
-            // console.log(cellCoord,' : ',cellValue);
             if(!cellValue){
                 gameStageArch[x][y] = 3;
                 if(winConditionAI()){
                     gameStageArch[x][y] = false;
                     winComb = [y,x];
+                    console.clear();
+                    console.log(winComb);
                     break;
                 }
                 else{
@@ -329,7 +330,6 @@ function getWinComb() {
             }
         }
     }
-    console.log(winComb);
 }
 gameLoop();
 // console.table(gameStageArch);
