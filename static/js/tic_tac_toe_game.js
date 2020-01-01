@@ -3,6 +3,7 @@ var gameStageArch = [];
 const player1 = 'O';
 const player2 = 'X';
 var pl;
+var winComb;
 if(isGameAgainstComp()){
     pl = 4;
 }
@@ -43,7 +44,7 @@ let my_cells = document.getElementsByClassName('game-cell');
                 let player = iterPlayers(cell);
                 let cell_coord = getCellCoord(cell);
                 addTurnToArch(player, cell_coord);
-                        getWinComb(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                getWinComb(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (win_condition()[0]){
                    alert(win_condition()[1]);
                    colorWinCells(win_condition()[2]);
@@ -305,26 +306,10 @@ function isGameAgainstComp() {
 
 // AI
 function compTurn() {
-    let lastClickedCellCoord = getCellCoord(lastClickedCell);
-    // console.log(lastClickedCellCoord);
-    let possibleTurns = [];
-    let x = lastClickedCellCoord[0];
-    let y = lastClickedCellCoord[1];
-    console.log(x,y);
-    try {
-      // for(x=x-1;x<x+1;x++){
-      //     for(let y=y-1;y<y+1;y++){
-      //         possibleTurns.push([x,y])
-      //     }
-      // }
-      console.log('Possible turns: ',possibleTurns);
-    }
-    catch(error) {
-        console.error(error);
-    }
+getWinComb();
 }
 
-// get not occupied cells
+// get winning combination
 function getWinComb() {
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
@@ -333,16 +318,18 @@ function getWinComb() {
             if(!cellValue){
                 gameStageArch[x][y] = 3;
                 if(winConditionAI()){
-                    console.log("Win comb",[y,x]);
                     gameStageArch[x][y] = false;
+                    winComb = [y,x];
+                    break;
                 }
                 else{
+                    winComb = false;
                     gameStageArch[x][y] = false;
                 }
             }
-
         }
     }
+    console.log(winComb);
 }
 gameLoop();
 // console.table(gameStageArch);
