@@ -303,5 +303,26 @@ function compTurn() {
     }
 }
 
+// get not occupied cells
+function getFreeCells() {
+    for(let x=0;x<gameStageArch.length;x++){
+        for(let y=0;y<gameStageArch[0].length;y++){
+            let cell = gameStageArch[x][y];
+            let cell_coord = [x,y];
+            // console.log(cell_coord);
+            if(cell === false){
+                // console.log([x,y]);
+                addTurnToArch(3, cell_coord);
+                // if(win_condition()){
+                //     console.log('Win combination: ',cell_coord);
+                // }
+                // else{
+                //     addTurnToArch(false, cell_coord);
+                //     break;
+                // }
+            }
+        }
+    }
+}
 gameLoop();
 console.table(gameStageArch);

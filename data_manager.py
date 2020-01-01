@@ -9,40 +9,42 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 @database_common.connection_handler
 def get_mentor_names_by_first_name(cursor, first_name):
-    cursor.execute("""
-                    SELECT first_name, last_name FROM mentors
-                    WHERE first_name = %(first_name)s ORDER BY first_name;
-                   """,
-                   {'first_name': first_name})
+    statement_str = "SELECT first_name, last_name FROM mentors WHERE first_name = %(first_name)s " \
+                    "ORDER BY first_name = %(first_name)s"
+    cursor.execute(statement_str, {'first_name': first_name})
     names = cursor.fetchall()
+
     return names
 
 
 @database_common.connection_handler
 def get_mentors_names_lastnames(cursor):
-    cursor.execute("SELECT first_name, last_name FROM mentors;")
+    statement_str = "SELECT first_name, last_name FROM mentors"
+    cursor.execute(statement_str)
     names = cursor.fetchall()
     return names
 
 
 @database_common.connection_handler
 def miskolc_mentors_nicknames(cursor):
-    cursor.execute("SELECT nick_name FROM mentors WHERE city = 'Miskolc';")
+    statement_str = "SELECT nick_name FROM mentors WHERE city = 'Miskolc'"
+    cursor.execute(statement_str)
     miskolc_mentors_nicknames = cursor.fetchall()
     return miskolc_mentors_nicknames
 
 
 @database_common.connection_handler
 def carols_fullname_number(cursor):
-    cursor.execute("SELECT first_name, last_name, phone_number FROM applicants WHERE first_name = 'Carol';")
+    statement_str = "SELECT first_name, last_name, phone_number FROM applicants WHERE first_name = 'Carol'"
+    cursor.execute(statement_str)
     carols_fullname_number = cursor.fetchall()
     return carols_fullname_number
 
 
 @database_common.connection_handler
 def another_girls_fullname_number(cursor):
-    cursor.execute(
-        "SELECT first_name, last_name, phone_number FROM applicants WHERE email LIKE '%@adipiscingenimmi.edu';")
+    statement_str = "SELECT first_name, last_name, phone_number FROM applicants WHERE email LIKE '%@adipiscingenimmi.edu'"
+    cursor.execute(statement_str)
     another_girls_fullname_number = cursor.fetchall()
     return another_girls_fullname_number
 
@@ -63,7 +65,6 @@ def add_new_applicant(cursor, first_name, last_name, phone_number, email, applic
             cursor.execute(
                 "INSERT INTO applicants(first_name, last_name, phone_number, email, application_code, user_id) VALUES(%s, %s, %s, %s, %s, %s)",
                 (first_name, last_name, phone_number, email, application_code, who_add_app))
-
             return True
     except Exception:
         print("Something wrong with add_new_applicant")
