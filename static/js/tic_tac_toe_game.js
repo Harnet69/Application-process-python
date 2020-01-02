@@ -127,6 +127,8 @@ function addTurnToArch(player, cell_coord){
     let cellCol = cell_coord[0];
     let cellRow  = cell_coord[1];
     gameStageArch[cellRow][cellCol] = player;
+    console.clear();
+    console.log(winComb);
     // console.clear();
     // console.table(gameStageArch);
 }
@@ -311,6 +313,7 @@ getWinComb();
 
 // get winning combination
 function getWinComb() {
+    let winCombs = [];
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
             let cellValue = gameStageArch[x][y];
@@ -318,17 +321,18 @@ function getWinComb() {
                 gameStageArch[x][y] = 3;
                 if(winConditionAI()){
                     gameStageArch[x][y] = false;
-                    winComb = [y,x];
-                    console.clear();
-                    console.log(winComb);
-                    break;
+                    winCombs.push([y,x]);
+                    // console.clear();
+                    // console.log(winCombs);
                 }
                 else{
-                    winComb = false;
                     gameStageArch[x][y] = false;
                 }
             }
         }
+    }
+    if (winCombs){
+        winComb = winCombs;
     }
 }
 gameLoop();
