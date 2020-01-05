@@ -350,22 +350,27 @@ function compTurn() {
     let winCombs = getWinComb();
     if(!winCombs[0]){
         let notOccupiedCells = getNotOccupiedCells();
-        turnCoord = notOccupiedCells[0]; // write function to random turn if not win combinations
+        turnCoord = getRandomCell(notOccupiedCells); // write function to random turn if not win combinations
     }
     else{
         turnCoord = [winCombs[0][1],winCombs[0][0]];
     }
-    if (win_condition()[0]){
-               alert(win_condition()[1]);
-               colorWinCells(win_condition()[2]);
-               setInterval(function(){
-               window.location.reload(true);
-               }, 2000);
-            }
+    // if (win_condition()[0]){
+    //            alert(win_condition()[1]);
+    //            colorWinCells(win_condition()[2]);
+    //            setInterval(function(){
+    //            window.location.reload(true);
+    //            }, 2000);
+    //         }
     let cell = findCellByCoord(turnCoord);
     addTurnToArch(4, [turnCoord[1],turnCoord[0]]);
     cell.textContent = player1;
     cell.classList.add('selected');
+}
+
+// random cell from not occupied cells array
+function getRandomCell(winCombs) {
+   return winCombs[Math.floor(Math.random() * winCombs.length)];
 }
 
 // get winning combination
