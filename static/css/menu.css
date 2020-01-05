@@ -36,3 +36,9 @@
   position: absolute;
   display: block;
 }
+
+.big{
+  font-size: 100px;
+  color: orange;
+  border: 2px solid blue;
+}
