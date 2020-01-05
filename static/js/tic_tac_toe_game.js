@@ -140,8 +140,8 @@ function addTurnToArch(player, cell_coord){
     gameStageArch[cellRow][cellCol] = player;
     // console.clear();
     // console.log(winComb); // !!!!!!!!!!!!!!!!!!!!!!!1 show win combinations
-    console.clear();
-    console.table(gameStageArch);
+    // console.clear();
+    // console.table(gameStageArch);
 }
 
 // win condition
@@ -300,13 +300,15 @@ function winAnotherDiag() {
 
 // color winning cells
 function colorWinCells(cellsCoordinates) {
-    let my_cells = document.getElementsByClassName('game-cell');
-    for(let cell of my_cells){
-        let cellRow = cell.getAttribute('data-coordinate-x');
-        let cellCol = cell.getAttribute('data-coordinate-y');
-        for(let arr of cellsCoordinates){
-            if(arr[1] === +cellRow && arr[0] === +cellCol){
-                cell.classList.add('winCell');
+    if(cellsCoordinates) {
+        let my_cells = document.getElementsByClassName('game-cell');
+        for (let cell of my_cells) {
+            let cellRow = cell.getAttribute('data-coordinate-x');
+            let cellCol = cell.getAttribute('data-coordinate-y');
+            for (let arr of cellsCoordinates) {
+                if (arr[1] === +cellRow && arr[0] === +cellCol) {
+                    cell.classList.add('winCell');
+                }
             }
         }
     }
