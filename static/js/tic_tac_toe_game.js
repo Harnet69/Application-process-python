@@ -353,6 +353,13 @@ function compTurn() {
     else{
         turnCoord = [winCombs[0][1],winCombs[0][0]];
     }
+    if (win_condition()[0]){
+               alert(win_condition()[1]);
+               colorWinCells(win_condition()[2]);
+               setInterval(function(){
+               window.location.reload(true);
+               }, 2000);
+            }
     let cell = findCellByCoord(turnCoord);
     addTurnToArch(4, [turnCoord[1],turnCoord[0]]);
     cell.textContent = player1;
