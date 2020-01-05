@@ -48,7 +48,19 @@ let player1ScoresDisp = document.querySelector('#player1_scores');
 let player2ScoresDisp = document.querySelector('#player2_scores');
 let resetButton = document.querySelector('#reset_button');
 let gameOver = false;
-    let isOrange = false;
+let isOrange = false;
+
+    wrapper.addEventListener('touchstart', function () {
+        if(!isOrange){
+            wrapper.style.backgroundColor = 'orange';
+        }
+        else{
+            wrapper.style.backgroundColor = 'white';
+        }
+        isOrange =!isOrange;
+
+    });
+
     wrapper.addEventListener("click", function () {
         if(!isOrange){
             wrapper.style.backgroundColor = 'orange';
