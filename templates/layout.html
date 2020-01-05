@@ -31,7 +31,9 @@
                                   <li><a href="/">Home</a></li>
                                   <li><a href="/applicants_info">Applicants info</a></li>
                                   <li><a href="/tic-tac-toe" >TicTacToe</a></li>
-                                  <li><a href="/javaScript" >JavaScript</a></li>
+                                    {% if  session['super_user'] and 'username' in session %}
+                                        <li><a href="/javaScript" >JavaScript</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
