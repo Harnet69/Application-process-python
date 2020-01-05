@@ -39,23 +39,49 @@
 //
 // last_p = document.getElementsByTagName('p')[1];
 // last_p.appendChild(create_button());
+let player1Scores = 0;
+let player2Scores = 0;
+let player1Button = document.querySelector('#player1_button');
+let player2Button = document.querySelector('#player2_button');
+let player1ScoresDisp = document.querySelector('#player1_scores');
+let player2ScoresDisp = document.querySelector('#player2_scores');
+let resetButton = document.querySelector('#reset_button');
+let gameOver = false;
 
-var li_tag = document.getElementById('my');
-var isYellow = true;
+    player1Button.addEventListener('click', function () {
+        if(!gameOver) {
+            player1Scores++;
+        }
+            if(player1Scores > 5){
+                alert('Game over! Player one win');
+                resetButton.style.backgroundColor = 'red';
+                gameOver = true;
+            }
+            else {
+                player1ScoresDisp.style.color = 'red';
+                player1ScoresDisp.textContent = player1Scores;
+            }
+    });
 
-li_tag.addEventListener('click', function () {
-    if (isYellow) {
-        li_tag.style.background = 'yellow';
-        isYellow = false;
-        li_tag.textContent = 'Hello, master';
-    } else {
-        li_tag.style.background = 'green';
-        isYellow = true;
-        li_tag.textContent = 'Good bye  , master';
-    }
+    player2Button.addEventListener('click', function () {
+        if(!gameOver) {
+            player2Scores++;
+        }
+            if(player2Scores > 5){
+                alert('Game over! Player two win');
+                resetButton.style.backgroundColor = 'red';
+                gameOver = true;
+            }
+            else {
+                player2ScoresDisp.style.color = 'blue';
+                player2ScoresDisp.textContent = player2Scores;
+            }
+    });
 
-});
-
-li_tag.addEventListener('mouseover',function () {
-    li_tag.classList.toggle('big');
-})
+    resetButton.addEventListener('click', function () {
+        gameOver = false;
+        player2Scores = 0;
+        player1Scores = 0;
+        player2ScoresDisp.textContent = player2Scores;
+        player1ScoresDisp.textContent = player1Scores;
+    });
