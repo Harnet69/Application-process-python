@@ -48,53 +48,42 @@ let player1ScoresDisp = document.querySelector('#player1_scores');
 let player2ScoresDisp = document.querySelector('#player2_scores');
 let resetButton = document.querySelector('#reset_button');
 let gameOver = false;
-let isOrange = false;
 
-    wrapper.addEventListener("click", function () {
-        if(!isOrange){
+player1Button.addEventListener('click', function () {
+    if(!gameOver) {
+        player1Scores++;
+    }
+        if(player1Scores > 5){
+            alert('Game over! Player one win');
+            resetButton.style.backgroundColor = 'red';
             wrapper.style.backgroundColor = 'orange';
+            gameOver = true;
         }
-        else{
-            wrapper.style.backgroundColor = 'white';
+        else {
+            player1ScoresDisp.style.color = 'red';
+            player1ScoresDisp.textContent = player1Scores;
         }
-        isOrange =!isOrange;
+});
 
-    });
-
-    player1Button.addEventListener('click', function () {
-        if(!gameOver) {
-            player1Scores++;
+player2Button.addEventListener('click', function () {
+    if(!gameOver) {
+        player2Scores++;
+    }
+        if(player2Scores > 5){
+            alert('Game over! Player two win');
+            resetButton.style.backgroundColor = 'red';
+            gameOver = true;
         }
-            if(player1Scores > 5){
-                alert('Game over! Player one win');
-                resetButton.style.backgroundColor = 'red';
-                gameOver = true;
-            }
-            else {
-                player1ScoresDisp.style.color = 'red';
-                player1ScoresDisp.textContent = player1Scores;
-            }
-    });
-
-    player2Button.addEventListener('click', function () {
-        if(!gameOver) {
-            player2Scores++;
+        else {
+            player2ScoresDisp.style.color = 'blue';
+            player2ScoresDisp.textContent = player2Scores;
         }
-            if(player2Scores > 5){
-                alert('Game over! Player two win');
-                resetButton.style.backgroundColor = 'red';
-                gameOver = true;
-            }
-            else {
-                player2ScoresDisp.style.color = 'blue';
-                player2ScoresDisp.textContent = player2Scores;
-            }
-    });
+});
 
-    resetButton.addEventListener('click', function () {
-        gameOver = false;
-        player2Scores = 0;
-        player1Scores = 0;
-        player2ScoresDisp.textContent = player2Scores;
-        player1ScoresDisp.textContent = player1Scores;
-    });
+resetButton.addEventListener('click', function () {
+    gameOver = false;
+    player2Scores = 0;
+    player1Scores = 0;
+    player2ScoresDisp.textContent = player2Scores;
+    player1ScoresDisp.textContent = player1Scores;
+});
