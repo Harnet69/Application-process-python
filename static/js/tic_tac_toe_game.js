@@ -348,20 +348,15 @@ function isGameAgainstComp() {
 function compTurn() {
     let turnCoord = [];
     let winCombs = getWinComb();
-    if(!winCombs[0]){
+    if(!winCombs[0]){// random turn strategy
         let notOccupiedCells = getNotOccupiedCells();
         turnCoord = getRandomCell(notOccupiedCells); // write function to random turn if not win combinations
     }
-    else{
-        turnCoord = [winCombs[0][1],winCombs[0][0]];
+    else{ //to interfere a player
+        let interfereComb = getRandomCell(winCombs);
+        turnCoord = [interfereComb[1],interfereComb[0]];
     }
-    // if (win_condition()[0]){
-    //            alert(win_condition()[1]);
-    //            colorWinCells(win_condition()[2]);
-    //            setInterval(function(){
-    //            window.location.reload(true);
-    //            }, 2000);
-    //         }
+
     let cell = findCellByCoord(turnCoord);
     addTurnToArch(4, [turnCoord[1],turnCoord[0]]);
     cell.textContent = player1;
