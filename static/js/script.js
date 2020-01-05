@@ -39,6 +39,7 @@
 //
 // last_p = document.getElementsByTagName('p')[1];
 // last_p.appendChild(create_button());
+let wrapper = document.getElementById("wrapper");
 let player1Scores = 0;
 let player2Scores = 0;
 let player1Button = document.querySelector('#player1_button');
@@ -47,6 +48,17 @@ let player1ScoresDisp = document.querySelector('#player1_scores');
 let player2ScoresDisp = document.querySelector('#player2_scores');
 let resetButton = document.querySelector('#reset_button');
 let gameOver = false;
+    let isOrange = false;
+    wrapper.addEventListener("click", function () {
+        if(!isOrange){
+            wrapper.style.backgroundColor = 'orange';
+        }
+        else{
+            wrapper.style.backgroundColor = 'white';
+        }
+        isOrange =!isOrange;
+
+    });
 
     player1Button.addEventListener('click', function () {
         if(!gameOver) {
