@@ -205,10 +205,18 @@ function draw() {
         }
     }
     if(gameStageArchLength === occupiedCells){
-        return true;
+        drawColorAllCells();
+      return true;
     }
 }
 
+//color all cells
+function drawColorAllCells(){
+    let gameCells = document.getElementsByClassName('game-cell');
+    for(let cell of gameCells){
+        cell.style.backgroundColor = 'red';
+    }
+}
 // horizontal winning
 function winHoriz() {
     for(let row=0;row<gameStageArch.length;row++){
@@ -322,12 +330,14 @@ function colorWinCells(cellsCoordinates) {
 
 // find cells by its coordinates
 function findCellByCoord(cellCoordinates) {
-    let my_cells = document.getElementsByClassName('game-cell');
-    for(let cell of my_cells){
-        let cellRow = cell.getAttribute('data-coordinate-x');
-        let cellCol = cell.getAttribute('data-coordinate-y');
-        if(cellCoordinates[1] === +cellRow && cellCoordinates[0] === +cellCol){
-            return cell;
+    if(cellCoordinates) {
+        let my_cells = document.getElementsByClassName('game-cell');
+        for (let cell of my_cells) {
+            let cellRow = cell.getAttribute('data-coordinate-x');
+            let cellCol = cell.getAttribute('data-coordinate-y');
+            if (cellCoordinates[1] === +cellRow && cellCoordinates[0] === +cellCol) {
+                return cell;
+            }
         }
     }
 }
@@ -362,11 +372,12 @@ function compTurn() {
         let interfereComb = getRandomCell(winCombs);
         turnCoord = [interfereComb[1],interfereComb[0]];
     }
-
-    let cell = findCellByCoord(turnCoord);
-    addTurnToArch(4, [turnCoord[1],turnCoord[0]]);
-    cell.textContent = player1;
-    cell.classList.add('selected');
+    if(turnCoord) {
+        let cell = findCellByCoord(turnCoord);
+        addTurnToArch(4, [turnCoord[1], turnCoord[0]]);
+        cell.textContent = player1;
+        cell.classList.add('selected');
+    }
 }
 
 // random cell from not occupied cells array
