@@ -1,3 +1,9 @@
+// First we check if you support touch, otherwise it's click:
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+
+// Then we bind via thát event. This way we only bind one event, instead of the two as below
+// document.getElementById('hbs').addEventListener(touchEvent, someFunction);
+
 var gameStageArch = [];
 const player1 = 'O';
 const player2 = 'X';
@@ -41,7 +47,7 @@ function gameLoop(){
     createGameStageArray();
     let my_cells = document.getElementsByClassName('game-cell');
     for(let cell of my_cells){
-        cell.addEventListener('click', function () {
+        cell.addEventListener(touchEvent, function () {
             if (!isCellOccupied(cell)) {
                 iterPlayers(cell);
                 if(pl === 3){
