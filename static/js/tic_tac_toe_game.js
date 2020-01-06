@@ -1,4 +1,4 @@
-// First we check if you support touch, otherwise it's click:
+// for Ios devices we check if you support touch, otherwise it's click:
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 
 var gameStageArch = [];
@@ -15,7 +15,6 @@ else{
     pl = 2;
     gameLoop();
 }
-
 
 // get board size
 function getBoardSize(){
@@ -378,14 +377,18 @@ function isGameAgainstComp() {
 function compTurn() {
     let turnCoord = [];
     let winCombs = getWinComb();
+    let winCombsForComp = getWinComb(4);
 
-    if(!winCombs[0]){// random turn strategy
-        let notOccupiedCells = getNotOccupiedCells();
-        turnCoord = getRandomCell(notOccupiedCells); // random turn if not win combinations
+    if(winCombsForComp[0]){ // turn to win!
+        turnCoord = [winCombsForComp[0][1],winCombsForComp[0][0]];
     }
-    else{ // to interfere a player
+    else if(winCombs[0]){// to interfere a player
         let interfereComb = getRandomCell(winCombs); // random win combination.
         turnCoord = [interfereComb[1],interfereComb[0]];
+    }
+    else{ // random turn strategy
+        let notOccupiedCells = getNotOccupiedCells();
+        turnCoord = getRandomCell(notOccupiedCells); // random turn if not win combinations
     }
     if(turnCoord) {
         let cell = findCellByCoord(turnCoord);
@@ -401,13 +404,13 @@ function getRandomCell(winCombs) {
 }
 
 // get winning combinations for AI
-function getWinComb() {
+function getWinComb(player=3) {
     let winCombs = [];
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
             let cellValue = gameStageArch[x][y];
             if(!cellValue){
-                gameStageArch[x][y] = 3; // add players num to all free cell and check if this a win comb
+                gameStageArch[x][y] = player; // add players num to all free cell and check if this a win comb
                 if(winConditionAI()){
                     gameStageArch[x][y] = false;
                     winCombs.push([y,x]); // collect win combs
