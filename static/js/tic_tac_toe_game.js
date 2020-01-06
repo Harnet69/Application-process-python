@@ -1,24 +1,21 @@
 // First we check if you support touch, otherwise it's click:
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 
-// Then we bind via thát event. This way we only bind one event, instead of the two as below
-// document.getElementById('hbs').addEventListener(touchEvent, someFunction);
-
 var gameStageArch = [];
 const player1 = 'O';
 const player2 = 'X';
 var pl;
 var winComb = [];
+let lastClickedCell; // for future IA
 if(isGameAgainstComp()){
     pl = 4;
-    // singleGameLoop();
     gameLoop();
 }
 else{
     pl = 2;
     gameLoop();
 }
-let lastClickedCell;
+
 
 // get board size
 function getBoardSize(){
@@ -47,19 +44,16 @@ function gameLoop(){
     createGameStageArray();
     let my_cells = document.getElementsByClassName('game-cell');
     for(let cell of my_cells){
+        let cell_coord = getCellCoord(cell);
         cell.addEventListener(touchEvent, function () {
             if (!isCellOccupied(cell)) {
                 iterPlayers(cell);
                 if(pl === 3){
-                    let cell_coord = getCellCoord(cell);
                     addTurnToArch(pl, cell_coord);
-                    // getWinComb();
                     compTurn();
                 }
                 else if(pl ===1 || pl ===2){
-                    let cell_coord = getCellCoord(cell);
                     addTurnToArch(pl, cell_coord);
-                    // getWinComb();
                 }
                 if (win_condition()[0]){
                    alert(win_condition()[1]);
@@ -81,33 +75,31 @@ function gameLoop(){
     }
 }
 
-
 // iterate players
 function iterPlayers(cell){
-// lastClickedCell = cell;
-// alert(lastClickedCell);
-if (pl === 1) {
-    cell.textContent = player1;
-    cell.classList.add('selected');
-    pl = 2;
-}
-else if(pl === 2){
-    cell.textContent = player2;
-    cell.classList.add('selected');
-    pl = 1;
-}
-else if(pl === 3){
-    cell.textContent = player2;
-    cell.classList.add('selected');
-    // pl = 4;
-}
-else if(pl === 4){ //Comp turn
-    cell.textContent = player2;
-    cell.classList.add('selected');
-    pl = 3;
-}
-displayPlayer(pl);
-return pl;
+    // lastClickedCell = cell;  // for future AI
+    // alert(lastClickedCell);
+    if (pl === 1) {
+        cell.textContent = player1;
+        cell.classList.add('selected');
+        pl = 2;
+    }
+    else if(pl === 2){
+        cell.textContent = player2;
+        cell.classList.add('selected');
+        pl = 1;
+    }
+    else if(pl === 3){ // Player turn in single game
+        cell.textContent = player2;
+        cell.classList.add('selected');
+    }
+    else if(pl === 4){ //Comp turn
+        cell.textContent = player2;
+        cell.classList.add('selected');
+        pl = 3;
+    }
+    displayPlayer(pl);
+    return pl;
 }
 
 // display a player who should to turn on
@@ -144,10 +136,9 @@ function addTurnToArch(player, cell_coord){
     let cellCol = cell_coord[0];
     let cellRow  = cell_coord[1];
     gameStageArch[cellRow][cellCol] = player;
-    // console.clear();
-    // console.log(winComb); // !!!!!!!!!!!!!!!!!!!!!!!1 show win combinations
-    // console.clear();
-    // console.table(gameStageArch);
+    // console.clear(); // for debugging
+    // console.log(winComb); // show win combinations
+    // console.table(gameStageArch); // show game arr
 }
 
 // win condition
@@ -172,27 +163,18 @@ function win_condition(){
         return [draw(), "It's a draw"];
     }
 }
-// win condition for AI
-function winConditionAI(){
-    let horiz = winHoriz();
-    let vert = winVert();
-    let diag = winDiag();
-    let anotherDiag = winAnotherDiag();
-    if(horiz) {
-        return true;
-    }
-    if(vert) {
-        return true;
-    }
-    if(diag) {
-        return true;
-    }
-    if(anotherDiag) {
-        return true;
-    }
-    return false;
-}
 
+// win condition turns for AI
+function winConditionAI(){
+    // let horiz = winHoriz();
+    // let vert = winVert();
+    // let diag = winDiag();
+    // let anotherDiag = winAnotherDiag();
+    if(winHoriz() || winVert() || winDiag() || winAnotherDiag()) { // is it correct? to perform functions in 'if'?
+        return true;
+    }
+    // return false;
+}
 
 // dead heat(draw)
 function draw() {
@@ -224,18 +206,28 @@ function winHoriz() {
             if (gameStageArch[row][col] === gameStageArch[row][col+1]
                 && gameStageArch[row][col+1] === gameStageArch[row][col+2]) {
                 let winComb = [[row,col],[row,col+1],[row,col+2]];
-                if(gameStageArch[row][col] === 1) {
-                    return [true, 'Player 1 won horizontally --', winComb];
+
+                if(gameStageArch[row][col]) {
+                    return winMessage(gameStageArch[row][col], 'won horizontally --', winComb);
                 }
-                if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won horizontally --', winComb];
-                }
-                if(gameStageArch[row][col] === 3){
-                    return[true, 'You won horizontally --', winComb];
-                }
-                if(gameStageArch[row][col] === 4){
-                    return[true, 'Computer won horizontally --', winComb];
-                }
+                // switch (gameStageArch[row][col]) {
+                //     case 1: return [true, 'Player 1 won horizontally --', winComb];
+                //     case 2: return[true, 'Player 2 won horizontally --', winComb];
+                //     case 3: return[true, 'You won horizontally --', winComb];
+                //     case 4: return[true, 'Computer won horizontally --', winComb];
+                // }
+                // if(gameStageArch[row][col] === 1) {
+                //     return [true, 'Player 1 won horizontally --', winComb];
+                // }
+                // if(gameStageArch[row][col] === 2){
+                //     return[true, 'Player 2 won horizontally --', winComb];
+                // }
+                // if(gameStageArch[row][col] === 3){
+                //     return[true, 'You won horizontally --', winComb];
+                // }
+                // if(gameStageArch[row][col] === 4){
+                //     return[true, 'Computer won horizontally --', winComb];
+                // }
             }
         }
     }
@@ -248,18 +240,22 @@ function winVert() {
             if (gameStageArch[row][col] === gameStageArch[row+1][col]
                 && gameStageArch[row+1][col] === gameStageArch[row+2][col]) {
                 let winComb = [[row,col],[row+1,col],[row+2,col]];
-                if(gameStageArch[row][col] === 1) {
-                    return [true, 'Player 1 won vertically |', winComb];
+
+                if(gameStageArch[row][col]) {
+                    return winMessage(gameStageArch[row][col], 'vertically |', winComb);
                 }
-                if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won  vertically |', winComb];
-                }
-                if(gameStageArch[row][col] === 3){
-                    return[true, 'You won vertically |', winComb];
-                }
-                if(gameStageArch[row][col] === 4){
-                    return[true, 'Computer won vertically |', winComb];
-                }
+                // if(gameStageArch[row][col] === 1) {
+                //     return [true, 'Player 1 won vertically |', winComb];
+                // }
+                // if(gameStageArch[row][col] === 2){
+                //     return[true, 'Player 2 won  vertically |', winComb];
+                // }
+                // if(gameStageArch[row][col] === 3){
+                //     return[true, 'You won vertically |', winComb];
+                // }
+                // if(gameStageArch[row][col] === 4){
+                //     return[true, 'Computer won vertically |', winComb];
+                // }
             }
         }
     }
@@ -271,18 +267,22 @@ function winDiag() {
             if (gameStageArch[row][col] === gameStageArch[row+1][col+1]
                 && gameStageArch[row+1][col+1] === gameStageArch[row+2][col+2]) {
                 let winComb = [[row,col],[row+1,col+1],[row+2,col+2]];
-                if(gameStageArch[row][col] === 1) {
-                    return [true, "Player 1 won diagonally \\", winComb];
+
+                if(gameStageArch[row][col]) {
+                    return winMessage(gameStageArch[row][col], 'diagonally \\', winComb);
                 }
-                if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won diagonally \\', winComb];
-                }
-                if(gameStageArch[row][col] === 3){
-                    return[true, 'You won diagonally \\', winComb];
-                }
-                if(gameStageArch[row][col] === 4){
-                    return[true, 'Computer won diagonally \\', winComb];
-                }
+                // if(gameStageArch[row][col] === 1) {
+                //     return [true, "Player 1 won diagonally \\", winComb];
+                // }
+                // if(gameStageArch[row][col] === 2){
+                //     return[true, 'Player 2 won diagonally \\', winComb];
+                // }
+                // if(gameStageArch[row][col] === 3){
+                //     return[true, 'You won diagonally \\', winComb];
+                // }
+                // if(gameStageArch[row][col] === 4){
+                //     return[true, 'Computer won diagonally \\', winComb];
+                // }
             }
         }
     }
@@ -295,20 +295,34 @@ function winAnotherDiag() {
             if (gameStageArch[row][col] === gameStageArch[row+1][col-1]
                 && gameStageArch[row+1][col-1] === gameStageArch[row+2][col-2]) {
                 let winComb = [[row,col],[row+1,col-1],[row+2,col-2]];
-                if(gameStageArch[row][col] === 1) {
-                    return [true, "Player 1 won diagonally /", winComb];
+
+                if(gameStageArch[row][col]) {
+                    return winMessage(gameStageArch[row][col], 'diagonally /', winComb);
                 }
-                if(gameStageArch[row][col] === 2){
-                    return[true, 'Player 2 won diagonally /', winComb];
-                }
-                if(gameStageArch[row][col] === 3){
-                    return[true, 'You won diagonally /', winComb];
-                }
-                if(gameStageArch[row][col] === 4){
-                    return[true, 'Computer won diagonally /', winComb];
-                }
+                // if(gameStageArch[row][col] === 1) {
+                //     return [true, "Player 1 won diagonally /", winComb];
+                // }
+                // if(gameStageArch[row][col] === 2){
+                //     return[true, 'Player 2 won diagonally /', winComb];
+                // }
+                // if(gameStageArch[row][col] === 3){
+                //     return[true, 'You won diagonally /', winComb];
+                // }
+                // if(gameStageArch[row][col] === 4){
+                //     return[true, 'Computer won diagonally /', winComb];
+                // }
             }
         }
+    }
+}
+
+// give a winning message
+function winMessage(player, winCond, winComb) {
+    switch (player) {
+        case 1: return [true, 'Player 1 won '+winCond, winComb];
+        case 2: return [true, 'Player 2 won '+winCond, winComb];
+        case 3: return [true, 'You won '+winCond, winComb];
+        case 4: return [true, 'Computer won '+winCond, winComb];
     }
 }
 
@@ -364,12 +378,13 @@ function isGameAgainstComp() {
 function compTurn() {
     let turnCoord = [];
     let winCombs = getWinComb();
+
     if(!winCombs[0]){// random turn strategy
         let notOccupiedCells = getNotOccupiedCells();
-        turnCoord = getRandomCell(notOccupiedCells); // write function to random turn if not win combinations
+        turnCoord = getRandomCell(notOccupiedCells); // random turn if not win combinations
     }
-    else{ //to interfere a player
-        let interfereComb = getRandomCell(winCombs);
+    else{ // to interfere a player
+        let interfereComb = getRandomCell(winCombs); // random win combination.
         turnCoord = [interfereComb[1],interfereComb[0]];
     }
     if(turnCoord) {
@@ -380,24 +395,22 @@ function compTurn() {
     }
 }
 
-// random cell from not occupied cells array
+// random cell from not occupied cells or cells from WinComb
 function getRandomCell(winCombs) {
    return winCombs[Math.floor(Math.random() * winCombs.length)];
 }
 
-// get winning combination
+// get winning combinations for AI
 function getWinComb() {
     let winCombs = [];
     for(let x=0;x<gameStageArch.length;x++){
         for(let y=0;y<gameStageArch[0].length;y++){
             let cellValue = gameStageArch[x][y];
             if(!cellValue){
-                gameStageArch[x][y] = 3;
+                gameStageArch[x][y] = 3; // add players num to all free cell and check if this a win comb
                 if(winConditionAI()){
                     gameStageArch[x][y] = false;
-                    winCombs.push([y,x]);
-                    // console.clear();
-                    // console.log(winCombs);
+                    winCombs.push([y,x]); // collect win combs
                 }
                 else{
                     gameStageArch[x][y] = false;
@@ -406,13 +419,12 @@ function getWinComb() {
         }
     }
     if (winCombs){
-        winComb = winCombs;
+        winComb = winCombs; // write it to a global variable for using
         return winCombs
     }
-    else{
-        return false
-    }
+    // else{
+    //     return false
+    // }
 }
 
-// gameLoop();
-// console.table(gameStageArch);
+// console.table(gameStageArch); // show initiate game bord for debugging
