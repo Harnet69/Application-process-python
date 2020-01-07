@@ -70,6 +70,14 @@ maxScore.addEventListener('change', function () {
 
 });
 
-    window.onload = function() {
-        dragula([document.getElementById('left'), document.getElementById('right')]);
-    };
+window.onload = function() {
+    dragula([document.getElementById('left'), document.getElementById('right')]);
+};
+
+let color = document.getElementById('color');
+color.addEventListener('mouseover', function () {
+   this.style.backgroundColor = 'pink';
+});
+color.addEventListener('mouseout', function () {
+   this.style.backgroundColor = '';
+});
